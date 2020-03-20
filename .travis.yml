@@ -1,0 +1,10 @@
+os: windows
+matrix:
+    include:        
+        - language: cpp
+          compiler: gcc
+          script:
+            - mkdir build
+            - cd build
+            - cmake ..
+            - cmake --build . --configure Releae
