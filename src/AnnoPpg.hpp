@@ -1,12 +1,9 @@
 #if !defined(AFX_ANNOPPG_H__C05F14EB_EEFC_4EDB_9D6F_F86547275571__INCLUDED_)
 #define AFX_ANNOPPG_H__C05F14EB_EEFC_4EDB_9D6F_F86547275571__INCLUDED_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
 // AnnoPpg.h : header file
 //
-#include "ColourPicker.h"
+#include "ColourPicker.hpp"
 /////////////////////////////////////////////////////////////////////////////
 // CAnnoPropPage : Property page dialog
 

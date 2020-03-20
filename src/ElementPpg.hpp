@@ -1,12 +1,7 @@
 #if !defined(AFX_ELEMENTPPG_H__517E4C68_E695_4AA4_AE50_B34B19B34076__INCLUDED_)
 #define AFX_ELEMENTPPG_H__517E4C68_E695_4AA4_AE50_B34B19B34076__INCLUDED_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-// ElementPpg.h : header file
-//
-#include "ColourPicker.h"
+#include "ColourPicker.hpp"
 /////////////////////////////////////////////////////////////////////////////
 // CElementPropPage : Property page dialog
 

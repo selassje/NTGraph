@@ -1,12 +1,8 @@
 #if !defined(AFX_NTGRAPHPPG_H__EE963BF3_61C1_420C_AAAC_CF89712455CC__INCLUDED_)
 #define AFX_NTGRAPHPPG_H__EE963BF3_61C1_420C_AAAC_CF89712455CC__INCLUDED_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
 // NTGraphPpg.h : Declaration of the CNTGraphPropPage property page class.
-#include "ColourPicker.h"
+#include "ColourPicker.hpp"
 ////////////////////////////////////////////////////////////////////////////
 // CNTGraphPropPage : See NTGraphPpg.cpp.cpp for implementation.
 

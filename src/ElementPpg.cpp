@@ -2,8 +2,8 @@
 //
 
 #include "stdafx.h"
-#include "NTGraph.h"
-#include "ElementPpg.h"
+#include "NTGraph.hpp"
+#include "ElementPpg.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

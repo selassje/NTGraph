@@ -33,8 +33,8 @@
 
 #include "stdafx.h"
 #include <math.h>
-#include "ColourPicker.h"
-#include "ColourPopup.h"
+#include "ColourPicker.hpp"
+#include "ColourPopup.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

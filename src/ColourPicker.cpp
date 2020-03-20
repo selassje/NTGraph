@@ -30,8 +30,8 @@
 //          9 Jan 1999 - minor vis update
 
 #include "stdafx.h"
-#include "ColourPopup.h"
-#include "ColourPicker.h"
+#include "ColourPopup.hpp"
+#include "ColourPicker.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

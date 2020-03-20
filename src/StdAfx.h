@@ -2,10 +2,6 @@
 #define AFX_STDAFX_H__BD7D281F_543C_4A14_A90F_A5DC1346D2CA__INCLUDED_
 
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
 // stdafx.h : include file for standard system include files,
 //      or project specific include files that are used frequently,
 //      but are changed infrequently
@@ -34,3 +30,7 @@
 #include  <stdlib.h>
 
 #endif // !defined(AFX_STDAFX_H__BD7D281F_543C_4A14_A90F_A5DC1346D2CA__INCLUDED_)
+
+
+#include "NTGraph.hpp"
+

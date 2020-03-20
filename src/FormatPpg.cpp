@@ -2,8 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "NTGraph.h"
-#include "FormatPpg.h"
+#include "FormatPpg.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

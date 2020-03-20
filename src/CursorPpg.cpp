@@ -2,8 +2,8 @@
 //
 
 #include "stdafx.h"
-#include "NTGraph.h"
-#include "CursorPpg.h"
+#include "NTGraph.hpp"
+#include "CursorPpg.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

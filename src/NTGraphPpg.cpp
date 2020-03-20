@@ -1,8 +1,7 @@
 // NTGraphPpg.cpp : Implementation of the CNTGraphPropPage property page class.
 
 #include "stdafx.h"
-#include "NTGraph.h"
-#include "NTGraphPpg.h"
+#include "NTGraphPpg.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

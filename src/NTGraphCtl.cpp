@@ -10,13 +10,12 @@
 
 
 #include "stdafx.h"
-#include "NTGraph.h"
-#include "NTGraphCtl.h"
-#include "NTGraphPpg.h"
-#include "ElementPpg.h"
-#include "AnnoPpg.h"
-#include "CursorPpg.h"
-#include "FormatPpg.h"
+#include "NTGraphCtl.hpp"
+#include "NTGraphPpg.hpp"
+#include "ElementPpg.hpp"
+#include "AnnoPpg.hpp"
+#include "CursorPpg.hpp"
+#include "FormatPpg.hpp"
 
 void DrawDiamond(CDC* pDC, CPoint point, int symsz);
 void DrawAsterisk(CDC* pDC, CPoint point, int symsz);

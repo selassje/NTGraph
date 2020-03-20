@@ -1,10 +1,6 @@
 #if !defined(AFX_COLOURPICKER_H__D0B75901_9830_11D1_9C0F_00A0243D1382__INCLUDED_)
 #define AFX_COLOURPICKER_H__D0B75901_9830_11D1_9C0F_00A0243D1382__INCLUDED_
 
-#if _MSC_VER >= 1000
-#pragma once
-#endif // _MSC_VER >= 1000
-
 // ColourPicker.h : header file
 //
 // Written by Chris Maunder (chrismaunder@codeguru.com)
@@ -22,7 +18,7 @@
 // The author accepts no liability if it causes any damage whatsoever.
 // It's free - so you get what you pay for.
 
-#include "ColourPopup.h"
+#include "ColourPopup.hpp"
 
 /////////////////////////////////////////////////////////////////////////////
 // CColourPicker window

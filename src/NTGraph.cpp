@@ -1,7 +1,6 @@
 // NTGraph.cpp : Implementation of CNTGraphApp and DLL registration.
 
 #include "stdafx.h"
-#include "NTGraph.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
