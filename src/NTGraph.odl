@@ -1,0 +1,192 @@
+// NTGraph.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (NTGraph.tlb) that will become a resource in
+// NTGraph.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(49F811F7-6005-4AAF-AE00-9D98766A6E26), version(1.0),
+  helpfile("NTGraph.hlp"),
+  helpstring("NTGraph ActiveX Control module"),
+  control ]
+library NTGRAPHLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	typedef [ uuid(865EDFD4-9E4D-4752-907A-033D45C1C7F5),
+	          helpstring("Line style constants") ] 
+			  enum { [helpstring ("Solid")] Solid = 0,
+					 [helpstring ("Dash")] Dash = 1,
+					 [helpstring ("Dot")] Dot = 2,
+					 [helpstring ("Dash Dot")] DashDot = 3,
+					 [helpstring ("Dash Dot Dot")] DashDotDot = 4,
+					 [helpstring ("None")] Null = 5,
+					 [helpstring ("XY Step")] XYStep = 6,
+					 [helpstring ("YX Step")] YXStep = 7,
+					 [helpstring ("Bars")] Bars = 8,
+					 [helpstring ("Stick")] Stick = 9
+                   } LineType;
+
+	typedef [ uuid(A096E330-15BA-42C1-BD53-2C7E0B96CF77),
+	          helpstring("Symbol style constants") ] 
+			  enum { [helpstring ("None")] Nosym = 0,
+			         [helpstring ("Dots")] Dots = 1,
+					 [helpstring ("Rectangles")] Rectangles = 2,
+					 [helpstring ("Diamonds")] Diamonds = 3,
+					 [helpstring ("Asterisk")] Asterisk = 4,
+					 [helpstring ("Down Triangles")] DownTriangles = 5,
+					 [helpstring ("Up Triangles")] UpTriangles = 6,
+					 [helpstring ("Left Triangles")] LeftTriangles = 7,
+					 [helpstring ("Right Triangles")] RightTriangles = 8,
+					} SymbolType;
+
+	typedef [ uuid(77D6CAFB-62A7-4916-A188-9A76D6194870),
+	          helpstring("Frame style constants") ] 
+			  enum { [helpstring ("Flat")] Flat = 0,
+			         [helpstring ("Scope")] Scope = 1,
+					 [helpstring ("3D Frame")] Bitmap = 2
+					} FrameStyle;
+
+	typedef [ uuid(7F2E3118-D790-42AE-81C9-FA14B54FC817),
+	          helpstring("Tracking Mode constants") ] 
+			  enum { [helpstring ("None")] None = 0,
+			         [helpstring ("Track cursor position")] Track = 1,
+					 [helpstring ("Zoom XY")] Zoom = 2,
+					 [helpstring ("Pan XY")] PanXY = 3,
+					 [helpstring ("Pan X")] PanX = 4,
+					 [helpstring ("Pan Y")] PanY = 5,
+                   } TrackModeState;
+
+
+
+	//  Primary dispatch interface for CNTGraphCtrl
+
+	[ uuid(AC90A107-78E8-4ED8-995A-3AE8BB3044A7),
+	  helpstring("Dispatch interface for NTGraph Control"), hidden ]
+	dispinterface _DNTGraph
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CNTGraphCtrl)
+			[id(DISPID_APPEARANCE), bindable, requestedit] short Appearance;
+			[id(DISPID_CAPTION), bindable, requestedit] BSTR Caption;
+			[id(DISPID_ENABLED), bindable, requestedit] boolean Enabled;
+			[id(1)] OLE_COLOR AxisColor;
+			[id(2)] OLE_COLOR GridColor;
+			[id(3)] OLE_COLOR LabelColor;
+			[id(4)] OLE_COLOR CursorColor;
+			[id(43)] IFontDisp* LabelFont;
+			[id(44)] IFontDisp* TickFont;
+			[id(45)] IFontDisp* TitleFont;
+			[id(46)] IFontDisp* IdentFont;
+			[id(5)] short XGridNumber;
+			[id(6)] short YGridNumber;
+			[id(7)] boolean ShowGrid;
+			[id(8)] BSTR XLabel;
+			[id(9)] BSTR YLabel;
+			[id(10)] OLE_COLOR ElementLineColor;
+			[id(11)] OLE_COLOR ElementPointColor;
+			[id(12)] LineType ElementLinetype;
+			[id(13)] long ElementWidth;
+			[id(14)] SymbolType ElementPointSymbol;
+			[id(15)] boolean ElementSolidPoint;
+			[id(16)] boolean ElementShow;
+			[id(47)] TrackModeState TrackMode;
+			[id(17)] BSTR ElementName;
+			[id(18)] boolean ElementIdentify;
+			[id(19)] boolean XLog;
+			[id(20)] boolean YLog;
+			[id(48)] IPictureDisp* ControlFramePicture;
+			[id(49)] IPictureDisp* PlotAreaPicture;
+			[id(21)] OLE_COLOR ControlFrameColor;
+			[id(22)] OLE_COLOR PlotAreaColor;
+			[id(23)] FrameStyle FrameStyle;
+			[id(24)] BSTR AnnoLabelCaption;
+			[id(25)] double AnnoLabelX;
+			[id(26)] double AnnoLabelY;
+			[id(27)] OLE_COLOR AnnoLabelColor;
+			[id(28)] boolean AnnoLabelHorizontal;
+			[id(29)] short Annotation;
+			[id(30)] boolean AnnoVisible;
+			[id(50)] short AnnoCount;
+			[id(31)] short Element;
+			[id(51)] short ElementCount;
+			[id(32)] OLE_COLOR AnnoLabelBkColor;
+			[id(52)] short CursorCount;
+			[id(33)] short Cursor;
+			[id(34)] double CursorX;
+			[id(35)] double CursorY;
+			[id(36)] short CursorStyle;
+			[id(37)] boolean CursorVisible;
+			[id(38)] short CursorMode;
+			[id(39)] BSTR FormatAxisBottom;
+			[id(40)] BSTR FormatAxisLeft;
+			[id(41)] boolean YTime;
+			[id(42)] boolean XTime;
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CNTGraphCtrl)
+			[id(53)] void SetRange(double xmin, double xmax, double ymin, double ymax);
+			[id(54)] void AutoRange();
+			[id(55)] void CopyToClipboard();
+			[id(56)] void PrintGraph();
+			[id(57)] void AddElement();
+			[id(58)] void DeleteElement(short ElementID);
+			[id(59)] void ClearGraph();
+			[id(68), propget] double ElementXValue(long index, short ElementID);
+			[id(68), propput] void ElementXValue(long index, short ElementID, double newValue);
+			[id(69), propget] double ElementYValue(long index, short ElementID);
+			[id(69), propput] void ElementYValue(long index, short ElementID, double newValue);
+			[id(60)] void PlotXY(double X, double Y, short ElementID);
+			[id(61)] void PlotY(double Y, short ElementID);
+			[id(62)] void ShowProperties();
+			[id(63)] void SaveAs(BSTR szFilename);
+			[id(64)] void AddAnnotation();
+			[id(65)] void DeleteAnnotation(short annoID);
+			[id(66)] void AddCursor();
+			[id(67)] void DeleteCursor(short cursorID);
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CNTGraphCtrl
+
+	[ uuid(D59ADFE5-1B52-45D5-AE1D-8FA146152154),
+	  helpstring("Event interface for NTGraph Control") ]
+	dispinterface _DNTGraphEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CNTGraphCtrl)
+			[id(1)] void CursorPosition(double x, double y);
+			[id(2)] void TrackModeChanged(TrackModeState lNewState);
+			[id(DISPID_CLICK)] void Click();
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for CNTGraphCtrl
+
+	[ uuid(C9FE01C2-2746-479B-96AB-E0BE9931B018),
+	  helpstring("NTGraph Control"), control ]
+	coclass NTGraph
+	{
+		[default] dispinterface _DNTGraph;
+		[default, source] dispinterface _DNTGraphEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

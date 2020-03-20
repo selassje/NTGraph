@@ -1,0 +1,9 @@
+; NTGraph.def : Declares the module parameters.
+
+LIBRARY      "NTGRAPH.OCX"
+
+EXPORTS
+	DllCanUnloadNow     PRIVATE
+	DllGetClassObject   PRIVATE
+	DllRegisterServer   PRIVATE
+	DllUnregisterServer PRIVATE

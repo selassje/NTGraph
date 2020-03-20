@@ -1,0 +1,520 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// German (Germany) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "1 TYPELIB ""NTGraph.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "Nikolai Teofilov\0"
+            VALUE "FileDescription", "NTGraph ActiveX Control Module\0"
+            VALUE "FileVersion", "4, 0, 0, 1\0"
+            VALUE "InternalName", "NTGraph\0"
+            VALUE "LegalCopyright", "Copyright (C) 2003\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OLESelfRegister", "\0"
+            VALUE "OriginalFilename", "NTGraph.OCX\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "NTGraph ActiveX Control Module\0"
+            VALUE "ProductVersion", "4, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_NTGRAPH             BITMAP  DISCARDABLE     "res/NTGraphCtl.bmp"
+IDB_FRAME               BITMAP  DISCARDABLE     "res/Frame.bmp"
+IDB_MARG                BITMAP  DISCARDABLE     "res/Margritte.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX_NTGRAPH DIALOG DISCARDABLE  34, 22, 179, 61
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About NTGraph Control"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "NTGraph Control, Version 4.0",IDC_STATIC,57,10,112,8
+    LTEXT           "Copyright (C) 2003, Nikolai Teofilov",IDC_STATIC,57,22,
+                    115,8
+    DEFPUSHBUTTON   "OK",IDOK,61,40,100,14,WS_GROUP
+    CONTROL         228,IDC_STATIC,"Static",SS_BITMAP,7,7,37,47
+END
+
+IDD_PROPAGE_FORMAT DIALOG DISCARDABLE  0, 0, 250, 110
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMBO_AXIS,166,22,68,37,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&Axis:",IDC_STATIC,138,24,16,8
+    EDITTEXT        IDC_EDIT_FORMAT,166,54,67,13,ES_AUTOHSCROLL
+    LTEXT           "&Format:",IDC_STATIC,137,56,24,8
+    LISTBOX         IDC_FORMAT_LIST,14,23,91,80,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Templates:",IDC_STATIC,15,11,36,8
+    COMBOBOX        IDC_COMBO_TYPE,166,38,68,65,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&Type:",IDC_STATIC,138,40,19,8
+    PUSHBUTTON      "&Default",IDC_BUTTON_DEFAULT,165,73,68,13
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX_NTGRAPH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 172
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 54
+    END
+
+    IDD_PROPAGE_FORMAT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ABOUTDLL            ICON    DISCARDABLE     "res/NTGraph.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_PROPAGE_FORMAT DLGINIT
+BEGIN
+    IDC_COMBO_AXIS, 0x403, 7, 0
+0x6f42, 0x7474, 0x6d6f, "\000" 
+    IDC_COMBO_AXIS, 0x403, 5, 0
+0x654c, 0x7466, "\000" 
+    IDC_COMBO_TYPE, 0x403, 7, 0
+0x754e, 0x626d, 0x7265, "\000" 
+    IDC_COMBO_TYPE, 0x403, 12, 0
+0x7845, 0x6f70, 0x656e, 0x746e, 0x6169, 0x006c, 
+    IDC_COMBO_TYPE, 0x403, 9, 0
+0x7953, 0x626d, 0x6c6f, 0x6369, "\000" 
+    IDC_COMBO_TYPE, 0x403, 5, 0
+0x6144, 0x6574, "\000" 
+    IDC_COMBO_TYPE, 0x403, 5, 0
+0x6954, 0x656d, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_NTGRAPH             "NTGraph Control"
+    IDS_NTGRAPH_PPG         "NTGraph Property Page"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_NTGRAPH_PPG_CAPTION "Graph"
+    IDS_ELEMENTS_PPG        "NTGraph Element Property Page"
+    IDS_ELEMENTS_PPG_CAPTION "Elements"
+    IDS_ANNOTATION_PPG      "NTGraph Annotation Property Page"
+    IDS_ANNOTATION_PPG_CAPTION "Annotations"
+    IDS_CURSOR_PPG          "NTGraph Cursor Property Page"
+    IDS_CURSOR_PPG_CAPTION  "Cursors"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_FORMAT_PPG          "NTGraph Format Property Page"
+    IDS_FORMAT_PPG_CAPTION  "Format"
+END
+
+#endif    // German (Germany) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_NTGRAPH DIALOG DISCARDABLE  0, 0, 250, 110
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Track Mode:",IDC_STATIC,16,13,42,8
+    CONTROL         "&Show Grid:",IDC_CHECK_SHOWGRID,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,16,64,59,8
+    COMBOBOX        IDC_COMBO_MODE,67,11,60,82,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&Caption:",IDC_STATIC,17,31,45,8
+    EDITTEXT        IDC_CAPTION,67,30,60,12,ES_AUTOHSCROLL
+    CONTROL         "&X Log:",IDC_CHECK_XLOG,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | WS_TABSTOP,16,77,60,8
+    CONTROL         "&Y Log:",IDC_CHECK_YLOG,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | WS_TABSTOP,16,90,60,8
+    PUSHBUTTON      "",IDC_GRID_COLOR,200,58,28,10
+    PUSHBUTTON      "",IDC_FRAME_COLOR,200,12,28,10
+    PUSHBUTTON      "",IDC_PLOT_COLOR,200,27,28,10
+    LTEXT           "&Plot Area:",IDC_STATIC,140,27,32,8
+    LTEXT           "&Control Frame:",IDC_STATIC,140,13,49,8
+    LTEXT           "&Grid Color:",IDC_STATIC,140,59,38,8
+    PUSHBUTTON      "",IDC_AXIS_COLOR,200,42,28,10
+    LTEXT           "&Axis Color:",IDC_STATIC,140,43,38,8
+    PUSHBUTTON      "",IDC_LABEL_COLOR,200,74,28,10
+    LTEXT           "&Label Color:",IDC_STATIC,140,75,38,8
+    COMBOBOX        IDC_COMBO_FRAME,67,47,60,45,CBS_DROPDOWN | WS_TABSTOP
+    LTEXT           "&Frame Style:",IDC_STATIC,18,48,40,8
+END
+
+IDD_PROPPAGE_ELEMENTS DIALOG DISCARDABLE  0, 0, 250, 110
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Elements:",IDC_STATIC,7,7,32,8
+    LISTBOX         IDC_ELEMENTLIST,7,18,76,52,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Add Element",IDC_ADDBUTTON,7,76,76,11
+    PUSHBUTTON      "&Delete Element",IDC_DELBUTTON,8,91,76,11
+    LTEXT           "&Line type:",IDC_STATIC,100,13,37,8
+    COMBOBOX        IDC_COMBO_TYPE,145,11,84,71,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&Width:",IDC_STATIC,100,77,22,8
+    EDITTEXT        IDC_EDIT_WIDTH,146,74,42,13,ES_AUTOHSCROLL
+    CONTROL         "Spin1",IDC_SPIN_WIDTH,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_AUTOBUDDY | UDS_ARROWKEYS,190,74,11,13
+    PUSHBUTTON      "",IDC_POINT_COLOR,145,57,49,12
+    CONTROL         "&Visble:",IDC_CHECK_VISIBLE,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | WS_TABSTOP,100,91,39,11
+    LTEXT           "&Point type:",IDC_STATIC,100,46,34,8
+    COMBOBOX        IDC_COMBO_SYMBOL,145,42,84,71,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "",IDC_LINE_COLOR,145,27,49,12
+    LTEXT           "&Line Color:",IDC_STATIC,101,29,34,8
+    LTEXT           "&Point Color:",IDC_STATIC,101,60,37,8
+    CONTROL         "&Solid:",IDC_CHECK_SOLID,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | WS_TABSTOP,198,59,32,11
+    EDITTEXT        IDC_EDIT_NAME,171,90,72,12,ES_AUTOHSCROLL
+    LTEXT           "&Name:",IDC_STATIC,145,92,22,8
+END
+
+IDD_PROPPAGE_ANNOTATION DIALOG DISCARDABLE  0, 0, 250, 110
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Annotations:",IDC_STATIC,7,7,40,8
+    LISTBOX         IDC_ANNOTATIONS,7,18,76,52,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Add Annotation",IDC_ADDBUTTON,7,76,76,11
+    PUSHBUTTON      "&Delete Annotation",IDC_DELBUTTON,8,91,76,11
+    LTEXT           "&Orientation:",IDC_STATIC,110,82,37,8
+    CONTROL         "&Visble:",IDC_CHECK_VISIBLE,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | WS_TABSTOP,122,92,39,11
+    PUSHBUTTON      "&Text",IDC_LABEL_COLOR,153,63,40,12
+    LTEXT           "&Colors:",IDC_STATIC,122,65,22,8
+    EDITTEXT        IDC_EDIT_CAPTION,153,18,85,12,ES_AUTOHSCROLL
+    LTEXT           "&Caption:",IDC_STATIC,120,20,27,8
+    COMBOBOX        IDC_COMBO_ORIENTATION,153,78,85,36,CBS_DROPDOWN | 
+                    CBS_DISABLENOSCROLL | WS_TABSTOP
+    LTEXT           "&X Coordinate:",IDC_STATIC,103,35,44,8
+    LTEXT           "&Y Coordinate:",IDC_STATIC,103,49,44,8
+    EDITTEXT        IDC_EDIT_X,153,33,85,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Y,153,48,85,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "&BkG",IDC_LABEL_BGCOLOR,197,63,40,12
+END
+
+IDD_PROPPAGE_CURSOR DIALOG DISCARDABLE  0, 0, 250, 110
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Cursors:",IDC_STATIC,7,7,26,8
+    LISTBOX         IDC_CURSORS,7,18,76,52,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "&Add Cursor",IDC_ADDBUTTON,7,76,76,11
+    PUSHBUTTON      "&Delete Cursor",IDC_DELBUTTON,8,91,76,11
+    LTEXT           "&Crosshair style:",IDC_STATIC,99,21,48,8
+    CONTROL         "&Visble:",IDC_CHECK_VISIBLE,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | WS_TABSTOP,125,91,37,11
+    PUSHBUTTON      "",IDC_CURSOR_COLOR,153,77,40,12
+    LTEXT           "&Color:",IDC_STATIC,128,79,19,8
+    COMBOBOX        IDC_COMBO_STYLE,153,18,85,56,CBS_DROPDOWN | 
+                    CBS_DISABLENOSCROLL | WS_TABSTOP
+    LTEXT           "&X Coordinate:",IDC_STATIC,103,35,44,8
+    LTEXT           "&Y Coordinate:",IDC_STATIC,103,49,44,8
+    EDITTEXT        IDC_EDIT_X,153,33,85,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Y,153,48,85,12,ES_AUTOHSCROLL
+    LTEXT           "&Snap mode:",IDC_STATIC,108,64,39,8
+    COMBOBOX        IDC_COMBO_SNAP,153,62,85,56,CBS_DROPDOWN | 
+                    CBS_DISABLENOSCROLL | WS_TABSTOP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_PROPPAGE_NTGRAPH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        VERTGUIDE, 16
+        VERTGUIDE, 140
+        VERTGUIDE, 200
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
+
+    IDD_PROPPAGE_ELEMENTS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
+
+    IDD_PROPPAGE_ANNOTATION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
+
+    IDD_PROPPAGE_CURSOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        VERTGUIDE, 147
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_PROPPAGE_NTGRAPH DLGINIT
+BEGIN
+    IDC_COMBO_MODE, 0x403, 5, 0
+0x6f4e, 0x656e, "\000" 
+    IDC_COMBO_MODE, 0x403, 6, 0
+0x7254, 0x6361, 0x006b, 
+    IDC_COMBO_MODE, 0x403, 5, 0
+0x6f5a, 0x6d6f, "\000" 
+    IDC_COMBO_MODE, 0x403, 6, 0
+0x6150, 0x586e, 0x0059, 
+    IDC_COMBO_MODE, 0x403, 5, 0
+0x6150, 0x586e, "\000" 
+    IDC_COMBO_MODE, 0x403, 5, 0
+0x6150, 0x596e, "\000" 
+    IDC_COMBO_FRAME, 0x403, 5, 0
+0x6c46, 0x7461, "\000" 
+    IDC_COMBO_FRAME, 0x403, 6, 0
+0x6353, 0x706f, 0x0065, 
+    IDC_COMBO_FRAME, 0x403, 7, 0
+0x6942, 0x6d74, 0x7061, "\000" 
+    0
+END
+
+IDD_PROPPAGE_ELEMENTS DLGINIT
+BEGIN
+    IDC_COMBO_TYPE, 0x403, 6, 0
+0x6f53, 0x696c, 0x0064, 
+    IDC_COMBO_TYPE, 0x403, 7, 0
+0x6144, 0x6873, 0x6465, "\000" 
+    IDC_COMBO_TYPE, 0x403, 6, 0
+0x6f44, 0x6574, 0x0064, 
+    IDC_COMBO_TYPE, 0x403, 11, 0
+0x6144, 0x6873, 0x442d, 0x746f, 0x6465, "\000" 
+    IDC_COMBO_TYPE, 0x403, 15, 0
+0x6144, 0x6873, 0x442d, 0x746f, 0x442d, 0x746f, 0x6465, "\000" 
+    IDC_COMBO_TYPE, 0x403, 5, 0
+0x6f4e, 0x656e, "\000" 
+    IDC_COMBO_TYPE, 0x403, 8, 0
+0x5958, 0x5320, 0x6574, 0x0070, 
+    IDC_COMBO_TYPE, 0x403, 8, 0
+0x5859, 0x5320, 0x6574, 0x0070, 
+    IDC_COMBO_TYPE, 0x403, 5, 0
+0x6142, 0x7372, "\000" 
+    IDC_COMBO_TYPE, 0x403, 6, 0
+0x7453, 0x6369, 0x006b, 
+    IDC_COMBO_SYMBOL, 0x403, 5, 0
+0x6f4e, 0x656e, "\000" 
+    IDC_COMBO_SYMBOL, 0x403, 5, 0
+0x6f44, 0x7374, "\000" 
+    IDC_COMBO_SYMBOL, 0x403, 11, 0
+0x6552, 0x7463, 0x6e61, 0x6c67, 0x7365, "\000" 
+    IDC_COMBO_SYMBOL, 0x403, 9, 0
+0x6944, 0x6d61, 0x6e6f, 0x7364, "\000" 
+    IDC_COMBO_SYMBOL, 0x403, 9, 0
+0x7341, 0x6574, 0x6972, 0x7363, "\000" 
+    IDC_COMBO_SYMBOL, 0x403, 15, 0
+0x6144, 0x6e77, 0x5420, 0x6972, 0x6e61, 0x6c67, 0x7365, "\000" 
+    IDC_COMBO_SYMBOL, 0x403, 13, 0
+0x7055, 0x5420, 0x6972, 0x6e61, 0x6c67, 0x7365, "\000" 
+    IDC_COMBO_SYMBOL, 0x403, 15, 0
+0x654c, 0x7466, 0x5420, 0x6972, 0x6e61, 0x6c67, 0x7365, "\000" 
+    IDC_COMBO_SYMBOL, 0x403, 16, 0
+0x6952, 0x6867, 0x2074, 0x7254, 0x6169, 0x676e, 0x656c, 0x0073, 
+    0
+END
+
+IDD_PROPPAGE_ANNOTATION DLGINIT
+BEGIN
+    IDC_COMBO_ORIENTATION, 0x403, 11, 0
+0x6f48, 0x6972, 0x6f7a, 0x746e, 0x6c61, "\000" 
+    IDC_COMBO_ORIENTATION, 0x403, 9, 0
+0x6556, 0x7472, 0x6369, 0x6c61, "\000" 
+    0
+END
+
+IDD_PROPPAGE_CURSOR DLGINIT
+BEGIN
+    IDC_COMBO_STYLE, 0x403, 16, 0
+0x7243, 0x736f, 0x6873, 0x6961, 0x2072, 0x2058, 0x2026, 0x0059, 
+    IDC_COMBO_STYLE, 0x403, 11, 0
+0x2058, 0x6168, 0x7269, 0x696c, 0x656e, "\000" 
+    IDC_COMBO_STYLE, 0x403, 11, 0
+0x2059, 0x6168, 0x7269, 0x696c, 0x656e, "\000" 
+    IDC_COMBO_STYLE, 0x403, 1, 0
+"\000" 
+    IDC_COMBO_SNAP, 0x403, 6, 0
+0x6946, 0x6578, 0x0064, 
+    IDC_COMBO_SNAP, 0x403, 9, 0
+0x6c46, 0x616f, 0x6974, 0x676e, "\000" 
+    IDC_COMBO_SNAP, 0x403, 16, 0
+0x6e53, 0x7061, 0x6f20, 0x206e, 0x6c65, 0x6d65, 0x6e65, 0x0074, 
+    0
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+1 TYPELIB "NTGraph.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
