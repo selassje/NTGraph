@@ -2389,10 +2389,10 @@ void CNTGraphCtrl::PlotY(double Y, short ElementID)
 	} 
 	else 
 	{
-		dAutoRangeX[MIN]=floor(X);
-		dAutoRangeY[MIN]=floor(X);
-		dAutoRangeX[MAX]=ceil(X);
-		dAutoRangeY[MAX]=ceil(X);
+		dAutoRangeX[MIN]=floor(static_cast<double>(X));
+		dAutoRangeY[MIN]=floor(static_cast<double>(X));
+		dAutoRangeX[MAX]=ceil(static_cast<double>(X));
+		dAutoRangeY[MAX]=ceil(static_cast<double>(X));
 		bIsPlotAvailable= TRUE ;
 	}
 	
