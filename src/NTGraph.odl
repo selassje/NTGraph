@@ -14,7 +14,6 @@
 library NTGRAPHLib
 {
 	importlib(STDOLE_TLB);
-	importlib(STDTYPE_TLB);
 
 	typedef [ uuid(865EDFD4-9E4D-4752-907A-033D45C1C7F5),
 	          helpstring("Line style constants") ] 

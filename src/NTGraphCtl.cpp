@@ -1857,7 +1857,7 @@ void CNTGraphCtrl::FillToolInfo(TOOLINFO *ti)
     ti->cbSize = sizeof(TOOLINFO);
     ti->hwnd = GetParent()->GetSafeHwnd();
     ti->uFlags = TTF_IDISHWND | TTF_ABSOLUTE | TTF_TRACK;
-    ti->uId = (UINT)GetSafeHwnd();
+    ti->uId = reinterpret_cast<UINT_PTR>(GetSafeHwnd());
 }
 
 void CNTGraphCtrl::DoPan(CPoint point, long mode)
@@ -2255,12 +2255,11 @@ void CNTGraphCtrl::PrintGraph()
 /////////////////////////////////////////////////////////////////////////////////
 void CNTGraphCtrl::AddElement() 
 {
-	CGraphElement* pElement = new CGraphElement(m_ElementList.GetCount());
+	CGraphElement* pElement = new CGraphElement(GetElementCount());
 	m_ElementList.AddTail(pElement);
-	m_elementCount = m_ElementList.GetCount();
-	m_nElementID = m_ElementList.GetCount()-1;
+	m_elementCount = GetElementCount();
+	m_nElementID = GetElementCount() -1;
 	m_Position = m_ElementList.GetTailPosition();
-
 	SetModifiedFlag();
 }
 
@@ -2283,8 +2282,8 @@ void CNTGraphCtrl::DeleteElement(short ElementID)
 			bIsPlotAvailable= FALSE ;
 		}
 
-		m_elementCount = m_ElementList.GetCount();
-		m_nElementID = m_ElementList.GetCount()-1;
+        m_elementCount = GetElementCount();
+		m_nElementID = m_elementCount -1;
 		
 		InvalidateControl();
 	    SetModifiedFlag();
@@ -2313,7 +2312,7 @@ void CNTGraphCtrl::ClearGraph()
     dAutoRangeX[MAX]=0;
     dAutoRangeY[MIN]=0;
 	dAutoRangeY[MAX]=0;
-    m_elementCount = m_ElementList.GetCount();
+    m_elementCount = GetElementCount();
 	bIsPlotAvailable= FALSE ;
 	
 	InvalidateControl();
@@ -2374,7 +2373,7 @@ void CNTGraphCtrl::PlotY(double Y, short ElementID)
 	// Gets the position of the element by index.
     POSITION aPosition = m_ElementList.FindIndex(ElementID);
     if (aPosition != NULL) 
-   		X=m_ElementList.GetAt(aPosition)->m_PointList.GetCount();
+   		X=static_cast<int>(m_ElementList.GetAt(aPosition)->m_PointList.GetCount());
 	else
 		return;
 
@@ -2519,7 +2518,7 @@ void CNTGraphCtrl::OnElementChanged()
 
 short CNTGraphCtrl::GetElementCount() 
 {
-	return m_ElementList.GetCount();
+	return static_cast<short>(m_ElementList.GetCount());
 }
 
 
@@ -2812,7 +2811,7 @@ PBITMAPINFO CNTGraphCtrl::CreateBitmapInfoStruct(HBITMAP hBmp)
 
   if(cClrBits != 24) 
     pbmi = (PBITMAPINFO) LocalAlloc(LPTR, sizeof(BITMAPINFOHEADER) + 
-											sizeof(RGBQUAD) * (1<< cClrBits)); 
+											sizeof(RGBQUAD) * ( 1ull << cClrBits)); 
   else //There is no RGBQUAD array for the 24-bit-per-pixel format.
     pbmi = (PBITMAPINFO) LocalAlloc(LPTR, sizeof(BITMAPINFOHEADER)); 
 
@@ -3014,9 +3013,9 @@ void CNTGraphCtrl::AddAnnotation()
 	anno.m_Caption.Format("Annotation-%d", m_AnnotationList.GetCount());
 	
 	m_AnnotationList.AddTail(anno);
-	m_nAnnotation = m_AnnotationList.GetCount()-1;
+	m_nAnnotation = static_cast<short>(m_AnnotationList.GetCount())-1;
 	TRACE("m_nAnnotation = %d\n",m_nAnnotation);
-	m_nAnnoCount = m_AnnotationList.GetCount();
+	m_nAnnoCount = static_cast<short>(m_AnnotationList.GetCount());
 
 	InvalidateControl();
 }
@@ -3029,7 +3028,7 @@ void CNTGraphCtrl::DeleteAnnotation(short annoID)
 	{
 		m_AnnotationList.RemoveAt(pos);
 		m_nAnnotation--;
-		m_nAnnoCount = m_AnnotationList.GetCount();
+		m_nAnnoCount = static_cast<short>(m_AnnotationList.GetCount());
 
 		InvalidateControl();
 	}
@@ -3297,8 +3296,8 @@ void CNTGraphCtrl::AddCursor()
 	CGraphCursor cursor;
 	
 	m_CursorList.AddTail(cursor);
-	m_nCursorID = m_CursorList.GetCount()-1;
-	m_nCursorCount = m_CursorList.GetCount();
+	m_nCursorID = static_cast<short>(m_CursorList.GetCount()-1);
+	m_nCursorCount =static_cast<short>(m_CursorList.GetCount());
 	
 	InvalidateControl();
 
@@ -3312,7 +3311,7 @@ void CNTGraphCtrl::DeleteCursor(short cursorID)
 	{
 		m_CursorList.RemoveAt(pos);
 		m_nCursorID--;
-		m_nCursorCount = m_CursorList.GetCount();
+		m_nCursorCount = static_cast<short>(m_CursorList.GetCount());
 
 		InvalidateControl();
 	}

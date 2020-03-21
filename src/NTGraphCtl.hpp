@@ -20,14 +20,14 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //Line style constants
-typedef enum LineType {Solid, Dash, Dot, DashDot, DashDotDot, Null, XYStep, YXStep, Bars, Stick};
+enum LineType {Solid, Dash, Dot, DashDot, DashDotDot, Null, XYStep, YXStep, Bars, Stick};
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //Enum to describe symbol style constants
-typedef enum SymbolType {Nosym, Dots, Rectangles, Diamonds,	Asterisk, 
-	            DownTriangles, UpTriangles, LeftTriangles, RightTriangles};
+enum SymbolType {Nosym, Dots, Rectangles, Diamonds,	Asterisk, 
+	             DownTriangles, UpTriangles, LeftTriangles, RightTriangles};
 
-typedef enum CursorMode {Fixed, Floating, Snap};
-typedef enum Crosshair  {XY, X, Y};
+enum CursorMode {Fixed, Floating, Snap};
+enum Crosshair  {XY, X, Y};
 ///////////////////////////////////////////////////////////
 // Declaration of the CElementPoint class.
 class CElementPoint

@@ -6,14 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_MFC_FLAG 2)
 
-add_definitions(-D_AFXDLL -D_MBCS -D_WIN32_WINNT=0x0A00)
+add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_AFXDLL -D_MBCS -D_WIN32_WINNT=0x0A00)
    
 set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /DEF:${CMAKE_CURRENT_SOURCE_DIR}/src/NTGraph.def")
 
 file(GLOB_RECURSE SRC
     "src/*.cpp"
     "src/*.h"
-
     "src/*.hpp"
     "src/*.odl"
 )
