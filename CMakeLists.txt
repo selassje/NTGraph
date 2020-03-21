@@ -8,7 +8,7 @@ set(CMAKE_MFC_FLAG 2)
 
 add_definitions(-D_AFXDLL -D_MBCS -D_WIN32_WINNT=0x0A00)
    
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /DEF:${CMAKE_CURRENT_SOURCE_DIR}/src/NTGraph.def")
+set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /DEF:${CMAKE_CURRENT_SOURCE_DIR}/src/NTGraph.def")
 
 file(GLOB_RECURSE SRC
     "src/*.cpp"
@@ -23,7 +23,7 @@ file(GLOB_RECURSE RES
     "src/*.rc"
 )
 
-add_library(${CMAKE_PROJECT_NAME} SHARED ${SRC})
+add_library(${CMAKE_PROJECT_NAME} MODULE ${SRC})
 target_sources(${PROJECT_NAME} PRIVATE ${RES})
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SUFFIX ".ocx")                        
