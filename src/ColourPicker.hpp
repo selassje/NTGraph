@@ -1,99 +1,80 @@
+/*
+MIT License
+
+Copyright(c) 1998-2020 Przemyslaw Koziol
+                       Chris Maunder (chrismaunder@codeguru.com)
+                       Alexander Bischofberger (bischofb@informatik.tu-muenchen.de)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this softwareand associated documentation files(the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and /or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions :
+
+The above copyright noticeand this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 #if !defined(AFX_COLOURPICKER_H__D0B75901_9830_11D1_9C0F_00A0243D1382__INCLUDED_)
 #define AFX_COLOURPICKER_H__D0B75901_9830_11D1_9C0F_00A0243D1382__INCLUDED_
 
-// ColourPicker.h : header file
-//
-// Written by Chris Maunder (chrismaunder@codeguru.com)
-// Extended by Alexander Bischofberger (bischofb@informatik.tu-muenchen.de)
-// Copyright (c) 1998.
-//
-// This code may be used in compiled form in any way you desire. This
-// file may be redistributed unmodified by any means PROVIDING it is 
-// not sold for profit without the authors written consent, and 
-// providing that this notice and the authors name is included. If 
-// the source code in  this file is used in any commercial application 
-// then a simple email would be nice.
-//
-// This file is provided "as is" with no expressed or implied warranty.
-// The author accepts no liability if it causes any damage whatsoever.
-// It's free - so you get what you pay for.
-
 #include "ColourPopup.hpp"
 
-/////////////////////////////////////////////////////////////////////////////
-// CColourPicker window
+void AFXAPI DDX_ColourPicker(CDataExchange* pDX, int nIDC, COLORREF& crColour);
 
-void AFXAPI DDX_ColourPicker(CDataExchange *pDX, int nIDC, COLORREF& crColour);
+#define CP_MODE_TEXT 1
+#define CP_MODE_BK 2
 
-/////////////////////////////////////////////////////////////////////////////
-// CColourPicker window
+class CColourPicker : public CButton {
 
-#define CP_MODE_TEXT 1  // edit text colour
-#define CP_MODE_BK   2  // edit background colour (default)
-
-class CColourPicker : public CButton
-{
-// Construction
 public:
     CColourPicker();
     DECLARE_DYNCREATE(CColourPicker);
 
-// Attributes
-public:
     COLORREF GetColour();
-    void     SetColour(COLORREF crColour); 
+    void SetColour(COLORREF crColour);
 
-    void     SetDefaultText(LPCTSTR szDefaultText);
-    void     SetCustomText(LPCTSTR szCustomText);
+    void SetDefaultText(LPCTSTR szDefaultText);
+    void SetCustomText(LPCTSTR szCustomText);
 
-    void     SetTrackSelection(BOOL bTracking = TRUE)  { m_bTrackSelection = bTracking; }
-    BOOL     GetTrackSelection()                       { return m_bTrackSelection; }
+    void SetTrackSelection(BOOL bTracking = TRUE) { m_bTrackSelection = bTracking; }
+    BOOL GetTrackSelection() { return m_bTrackSelection; }
 
-    void     SetSelectionMode(UINT nMode)              { m_nSelectionMode = nMode; }
-    UINT     GetSelectionMode()                        { return m_nSelectionMode; };
+    void SetSelectionMode(UINT nMode) { m_nSelectionMode = nMode; }
+    UINT GetSelectionMode() { return m_nSelectionMode; };
 
-    void     SetBkColour(COLORREF crColourBk);
-    COLORREF GetBkColour()                             { return m_crColourBk; }
-    
-    void     SetTextColour(COLORREF crColourText);
-    COLORREF GetTextColour()                           { return m_crColourText;}
+    void SetBkColour(COLORREF crColourBk);
+    COLORREF GetBkColour() { return m_crColourBk; }
 
-// Operations
-public:
+    void SetTextColour(COLORREF crColourText);
+    COLORREF GetTextColour() { return m_crColourText; }
 
-// Overrides
-    // ClassWizard generated virtual function overrides
-    //{{AFX_VIRTUAL(CColourPicker)
-    public:
     virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-    protected:
-    virtual void PreSubclassWindow();
-    //}}AFX_VIRTUAL
-
-// Implementation
-public:
     virtual ~CColourPicker();
 
-protected:
-    void SetWindowSize();
 
-// protected attributes
 protected:
-    BOOL     m_bActive,                // Is the dropdown active?
-             m_bTrackSelection;        // track colour changes?
+    BOOL m_bActive;
+    BOOL m_bTrackSelection;
     COLORREF m_crColourBk;
     COLORREF m_crColourText;
-    UINT     m_nSelectionMode;
-    CRect    m_ArrowRect;
-    CString  m_strDefaultText;
-    CString  m_strCustomText;
-
-    // Generated message map functions
-protected:
-    //{{AFX_MSG(CColourPicker)
+    UINT m_nSelectionMode;
+    CRect m_ArrowRect;
+    CString m_strDefaultText;
+    CString m_strCustomText;
+    void SetWindowSize();
+    virtual void PreSubclassWindow();
     afx_msg BOOL OnClicked();
     afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-    //}}AFX_MSG
     afx_msg LRESULT OnSelEndOK(WPARAM wParam, LPARAM lParam);
     afx_msg LRESULT OnSelEndCancel(WPARAM wParam, LPARAM lParam);
     afx_msg LRESULT OnSelChange(WPARAM wParam, LPARAM lParam);
@@ -101,9 +82,4 @@ protected:
     DECLARE_MESSAGE_MAP()
 };
 
-/////////////////////////////////////////////////////////////////////////////
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_COLOURPICKER_H__D0B75901_9830_11D1_9C0F_00A0243D1382__INCLUDED_)
+#endif

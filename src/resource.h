@@ -1,7 +1,3 @@
-//{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by NTGraph.rc
-//
 #define IDS_NTGRAPH                     1
 #define IDD_ABOUTBOX_NTGRAPH            1
 #define IDB_NTGRAPH                     1
@@ -67,8 +63,6 @@
 #define IDD_PROPPAGE_CURSOR             232
 #define IDD_PROPAGE_FORMAT              234
 
-// Next default values for new objects
-// 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        236

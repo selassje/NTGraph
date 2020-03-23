@@ -1,273 +1,241 @@
-// NTGraphPpg.cpp : Implementation of the CNTGraphPropPage property page class.
+/*
+MIT License
 
-#include "stdafx.h"
+Copyright(c) 1998-2020 Przemyslaw Koziol
+                       Chris Maunder (chrismaunder@codeguru.com)
+                       Alexander Bischofberger (bischofb@informatik.tu-muenchen.de)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this softwareand associated documentation files(the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and /or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions :
+
+The above copyright noticeand this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 #include "NTGraphPpg.hpp"
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-
+#include "stdafx.h"
 
 IMPLEMENT_DYNCREATE(CNTGraphPropPage, COlePropertyPage)
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Message map
-
 BEGIN_MESSAGE_MAP(CNTGraphPropPage, COlePropertyPage)
-	//{{AFX_MSG_MAP(CNTGraphPropPage)
-	ON_WM_HELPINFO()
-	ON_MESSAGE(CPN_CLOSEUP , OnColorChange)
-	ON_EN_CHANGE(IDC_CAPTION, OnChangeCaption)
-	ON_BN_CLICKED(IDC_CHECK_SHOWGRID, OnCheckShowgrid)
-	ON_BN_CLICKED(IDC_CHECK_XLOG, OnCheckXlog)
-	ON_BN_CLICKED(IDC_CHECK_YLOG, OnCheckYlog)
-	ON_CBN_CLOSEUP(IDC_COMBO_FRAME, OnCloseupComboFrame)
-	ON_CBN_CLOSEUP(IDC_COMBO_MODE, OnCloseupComboMode)
-	//}}AFX_MSG_MAP
+
+ON_WM_HELPINFO()
+ON_MESSAGE(CPN_CLOSEUP, OnColorChange)
+ON_EN_CHANGE(IDC_CAPTION, OnChangeCaption)
+ON_BN_CLICKED(IDC_CHECK_SHOWGRID, OnCheckShowgrid)
+ON_BN_CLICKED(IDC_CHECK_XLOG, OnCheckXlog)
+ON_BN_CLICKED(IDC_CHECK_YLOG, OnCheckYlog)
+ON_CBN_CLOSEUP(IDC_COMBO_FRAME, OnCloseupComboFrame)
+ON_CBN_CLOSEUP(IDC_COMBO_MODE, OnCloseupComboMode)
+
 END_MESSAGE_MAP()
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Initialize class factory and guid
-
 IMPLEMENT_OLECREATE_EX(CNTGraphPropPage, "NTGRAPH.NTGraphPropPage.1",
-	0x2dd5d509, 0xe89e, 0x4825, 0x87, 0xd3, 0xa9, 0x39, 0xe6, 0x89, 0xbd, 0x25)
-
-
-/////////////////////////////////////////////////////////////////////////////
-// CNTGraphPropPage::CNTGraphPropPageFactory::UpdateRegistry -
-// Adds or removes system registry entries for CNTGraphPropPage
+    0x2dd5d509, 0xe89e, 0x4825, 0x87, 0xd3, 0xa9, 0x39, 0xe6, 0x89, 0xbd, 0x25)
 
 BOOL CNTGraphPropPage::CNTGraphPropPageFactory::UpdateRegistry(BOOL bRegister)
 {
-	if (bRegister)
-		return AfxOleRegisterPropertyPageClass(AfxGetInstanceHandle(),
-			m_clsid, IDS_NTGRAPH_PPG);
-	else
-		return AfxOleUnregisterClass(m_clsid, NULL);
+    if (bRegister)
+        return AfxOleRegisterPropertyPageClass(AfxGetInstanceHandle(),
+            m_clsid, IDS_NTGRAPH_PPG);
+    else
+        return AfxOleUnregisterClass(m_clsid, NULL);
 }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// CNTGraphPropPage::CNTGraphPropPage - Constructor
-
-CNTGraphPropPage::CNTGraphPropPage() :
-	COlePropertyPage(IDD, IDS_NTGRAPH_PPG_CAPTION)
+CNTGraphPropPage::CNTGraphPropPage()
+    : COlePropertyPage(IDD, IDS_NTGRAPH_PPG_CAPTION)
 {
-	//{{AFX_DATA_INIT(CNTGraphPropPage)
-	//}}AFX_DATA_INIT
-
-	SetHelpInfo(_T("Names to appear in the control"), _T("NTGRAPH.HLP"), 0);
+    SetHelpInfo(_T("Names to appear in the control"), _T("NTGRAPH.HLP"), 0);
 }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// CNTGraphPropPage::DoDataExchange - Moves data between page and properties
 
 void CNTGraphPropPage::DoDataExchange(CDataExchange* pDX)
 {
-	//{{AFX_DATA_MAP(CNTGraphPropPage)
-	DDX_Control(pDX, IDC_CHECK_YLOG, m_btnYLog);
-	DDX_Control(pDX, IDC_CHECK_XLOG, m_btnXLog);
-	DDX_Control(pDX, IDC_CHECK_SHOWGRID, m_btnGrid);
-	DDX_Control(pDX, IDC_FRAME_COLOR, m_btnFrameColor);
-	DDX_Control(pDX, IDC_PLOT_COLOR, m_btnPlotColor);
-	DDX_Control(pDX, IDC_GRID_COLOR, m_btnGridColor);
-	DDX_Control(pDX, IDC_AXIS_COLOR, m_btnAxisColor);
-	DDX_Control(pDX, IDC_LABEL_COLOR, m_btnLabelColor);
-	DDP_CBIndex(pDX, IDC_COMBO_FRAME, m_nFrame, _T("FrameStyle") );
-	DDX_CBIndex(pDX, IDC_COMBO_FRAME, m_nFrame);
-	DDX_Control(pDX, IDC_COMBO_FRAME, m_cbFrame);
-	DDP_CBIndex(pDX, IDC_COMBO_FRAME, m_nMode, _T("TrackMode") );
-	DDX_CBIndex(pDX, IDC_COMBO_FRAME, m_nMode);
-	DDX_Control(pDX, IDC_COMBO_MODE, m_cbTrackMode);
-	//}}AFX_DATA_MAP
-	DDP_PostProcessing(pDX);
 
+    DDX_Control(pDX, IDC_CHECK_YLOG, m_btnYLog);
+    DDX_Control(pDX, IDC_CHECK_XLOG, m_btnXLog);
+    DDX_Control(pDX, IDC_CHECK_SHOWGRID, m_btnGrid);
+    DDX_Control(pDX, IDC_FRAME_COLOR, m_btnFrameColor);
+    DDX_Control(pDX, IDC_PLOT_COLOR, m_btnPlotColor);
+    DDX_Control(pDX, IDC_GRID_COLOR, m_btnGridColor);
+    DDX_Control(pDX, IDC_AXIS_COLOR, m_btnAxisColor);
+    DDX_Control(pDX, IDC_LABEL_COLOR, m_btnLabelColor);
+    DDP_CBIndex(pDX, IDC_COMBO_FRAME, m_nFrame, _T("FrameStyle"));
+    DDX_CBIndex(pDX, IDC_COMBO_FRAME, m_nFrame);
+    DDX_Control(pDX, IDC_COMBO_FRAME, m_cbFrame);
+    DDP_CBIndex(pDX, IDC_COMBO_FRAME, m_nMode, _T("TrackMode"));
+    DDX_CBIndex(pDX, IDC_COMBO_FRAME, m_nMode);
+    DDX_Control(pDX, IDC_COMBO_MODE, m_cbTrackMode);
+
+    DDP_PostProcessing(pDX);
 }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// CNTGraphPropPage message handlers
-///////////////////////////////////////////////////////////////////////////
-
-
-BOOL CNTGraphPropPage::OnHelpInfo(HELPINFO* pHelpInfo) 
+BOOL CNTGraphPropPage::OnHelpInfo(HELPINFO* pHelpInfo)
 {
+    AfxGetApp()->WinHelp(0, HELP_CONTENTS);
 
-	// OnHelp is called by IPropertyPage::Help.  When someone requests
-	// it, we supply help by calling CWinApp::WinHelp
-	 AfxGetApp()->WinHelp(0,HELP_CONTENTS);
-	
-	return COlePropertyPage::OnHelpInfo(pHelpInfo);
+    return COlePropertyPage::OnHelpInfo(pHelpInfo);
 }
 
 BOOL CNTGraphPropPage::OnHelp(LPCTSTR)
 {
+    AfxGetApp()->WinHelp(0, HELP_CONTENTS);
 
-	// OnHelp is called by IPropertyPage::Help.  When someone requests
-	// it, we supply help by calling CWinApp::WinHelp
-	 AfxGetApp()->WinHelp(0,HELP_CONTENTS);
-
-
-return TRUE;
+    return TRUE;
 }
-LRESULT CNTGraphPropPage::OnColorChange(WPARAM /*lParam*/, LPARAM /*wParam*/)
+LRESULT CNTGraphPropPage::OnColorChange(WPARAM, LPARAM)
 {
 
-	CString str;
-	
-	str.Format("%u",m_btnFrameColor.GetColour());
-	SetPropText("ControlFrameColor", str);
+    CString str;
 
-	str.Format("%u",m_btnPlotColor.GetColour());
-	SetPropText("PlotAreaColor", str);
-	
-	str.Format("%u",m_btnGridColor.GetColour());
-	SetPropText("GridColor", str);
-	
-	str.Format("%u",m_btnAxisColor.GetColour());
-	SetPropText("AxisColor", str);
-	
-	str.Format("%u",m_btnLabelColor.GetColour());
-	SetPropText("LabelColor", str);
+    str.Format("%u", m_btnFrameColor.GetColour());
+    SetPropText("ControlFrameColor", str);
 
+    str.Format("%u", m_btnPlotColor.GetColour());
+    SetPropText("PlotAreaColor", str);
+
+    str.Format("%u", m_btnGridColor.GetColour());
+    SetPropText("GridColor", str);
+
+    str.Format("%u", m_btnAxisColor.GetColour());
+    SetPropText("AxisColor", str);
+
+    str.Format("%u", m_btnLabelColor.GetColour());
+    SetPropText("LabelColor", str);
 
     TRACE0("Selection changed= %d\n");
     return TRUE;
 }
 
-void CNTGraphPropPage::OnChangeCaption() 
+void CNTGraphPropPage::OnChangeCaption()
 {
-	CString str;
-	GetDlgItemText(IDC_CAPTION, str);
-	SetPropText("Caption", str);		
+    CString str;
+    GetDlgItemText(IDC_CAPTION, str);
+    SetPropText("Caption", str);
 }
 
-
-void CNTGraphPropPage::OnCheckShowgrid() 
+void CNTGraphPropPage::OnCheckShowgrid()
 {
-	CString str("TRUE");		
+    CString str("TRUE");
 
-	if(m_btnGrid.GetCheck())
-		SetPropText("ShowGrid", str);
-	else
-	{   
-		str = "FALSE";
+    if (m_btnGrid.GetCheck())
         SetPropText("ShowGrid", str);
-	}
-
+    else {
+        str = "FALSE";
+        SetPropText("ShowGrid", str);
+    }
 }
 
-void CNTGraphPropPage::OnCheckXlog() 
+void CNTGraphPropPage::OnCheckXlog()
 {
-	CString str("TRUE");		
+    CString str("TRUE");
 
-	if(m_btnXLog.GetCheck())
-		SetPropText("XLog", str);
-	else
-	{   
-		str = "FALSE";
+    if (m_btnXLog.GetCheck())
         SetPropText("XLog", str);
-	}
+    else {
+        str = "FALSE";
+        SetPropText("XLog", str);
+    }
 }
 
-void CNTGraphPropPage::OnCheckYlog() 
+void CNTGraphPropPage::OnCheckYlog()
 {
-	CString str("TRUE");		
+    CString str("TRUE");
 
-	if(m_btnYLog.GetCheck())
-		SetPropText("YLog", str);
-	else
-	{   
-		str = "FALSE";
+    if (m_btnYLog.GetCheck())
         SetPropText("YLog", str);
-	}	
+    else {
+        str = "FALSE";
+        SetPropText("YLog", str);
+    }
 }
 
-void CNTGraphPropPage::OnCloseupComboFrame() 
+void CNTGraphPropPage::OnCloseupComboFrame()
 {
-	CString str;
-	str.Format("%d",m_cbFrame.GetCurSel());
-   	SetPropText("FrameStyle", str);		
+    CString str;
+    str.Format("%d", m_cbFrame.GetCurSel());
+    SetPropText("FrameStyle", str);
 }
 
-void CNTGraphPropPage::OnCloseupComboMode() 
+void CNTGraphPropPage::OnCloseupComboMode()
 {
-	CString str;
-	str.Format("%d",m_cbTrackMode.GetCurSel());
-   	SetPropText("TrackMode", str);			
+    CString str;
+    str.Format("%d", m_cbTrackMode.GetCurSel());
+    SetPropText("TrackMode", str);
 }
 
-void CNTGraphPropPage::UpdateControls() 
+void CNTGraphPropPage::UpdateControls()
 {
-	CString caption;
-	GetPropText("Caption", &caption);
+    CString caption;
+    GetPropText("Caption", &caption);
 
-	SetDlgItemText (IDC_CAPTION, caption);
+    SetDlgItemText(IDC_CAPTION, caption);
 
-	COLORREF color;
+    COLORREF color;
 
-	GetPropText("AxisColor", &color);
+    GetPropText("AxisColor", &color);
     m_btnAxisColor.SetColour(color);
 
-	GetPropText("ControlFrameColor", &color);
+    GetPropText("ControlFrameColor", &color);
     m_btnFrameColor.SetColour(color);
 
-	GetPropText("GridColor", &color);
+    GetPropText("GridColor", &color);
     m_btnGridColor.SetColour(color);
 
-	GetPropText("PlotAreaColor", &color);
+    GetPropText("PlotAreaColor", &color);
     m_btnPlotColor.SetColour(color);
 
-	GetPropText("LabelColor", &color);
+    GetPropText("LabelColor", &color);
     m_btnLabelColor.SetColour(color);
 
-	int frame;
-	GetPropText("FrameStyle", &frame);
-	m_cbFrame.SetCurSel(frame);
+    int frame;
+    GetPropText("FrameStyle", &frame);
+    m_cbFrame.SetCurSel(frame);
 
-	int mode;
-	GetPropText("TrackMode", &mode);
-	m_cbTrackMode.SetCurSel(mode);
+    int mode;
+    GetPropText("TrackMode", &mode);
+    m_cbTrackMode.SetCurSel(mode);
 
-	BOOL grid;
-	GetPropText("ShowGrid", &grid);
+    BOOL grid;
+    GetPropText("ShowGrid", &grid);
 
-	if(grid)
-		CheckDlgButton(IDC_CHECK_SHOWGRID,BST_CHECKED);
-	else
-		CheckDlgButton(IDC_CHECK_SHOWGRID,BST_UNCHECKED);	
+    if (grid)
+        CheckDlgButton(IDC_CHECK_SHOWGRID, BST_CHECKED);
+    else
+        CheckDlgButton(IDC_CHECK_SHOWGRID, BST_UNCHECKED);
 
-	BOOL xlog;
-	GetPropText("XLog", &xlog);
+    BOOL xlog;
+    GetPropText("XLog", &xlog);
 
-	if(xlog)
-		CheckDlgButton(IDC_CHECK_XLOG,BST_CHECKED);
-	else
-		CheckDlgButton(IDC_CHECK_XLOG,BST_UNCHECKED);	
+    if (xlog)
+        CheckDlgButton(IDC_CHECK_XLOG, BST_CHECKED);
+    else
+        CheckDlgButton(IDC_CHECK_XLOG, BST_UNCHECKED);
 
-	BOOL ylog;
-	GetPropText("YLog", &ylog);
+    BOOL ylog;
+    GetPropText("YLog", &ylog);
 
-	if(ylog)
-		CheckDlgButton(IDC_CHECK_YLOG,BST_CHECKED);
-	else
-		CheckDlgButton(IDC_CHECK_YLOG,BST_UNCHECKED);	
-
-
+    if (ylog)
+        CheckDlgButton(IDC_CHECK_YLOG, BST_CHECKED);
+    else
+        CheckDlgButton(IDC_CHECK_YLOG, BST_UNCHECKED);
 }
 
-BOOL CNTGraphPropPage::OnInitDialog() 
+BOOL CNTGraphPropPage::OnInitDialog()
 {
-	COlePropertyPage::OnInitDialog();
-	
+    COlePropertyPage::OnInitDialog();
 
-
-	UpdateControls();	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+    UpdateControls();
+    return TRUE;
 }

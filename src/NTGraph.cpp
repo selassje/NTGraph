@@ -27,7 +27,8 @@ SOFTWARE.
 CNTGraphApp NEAR theApp;
 
 const GUID CDECL BASED_CODE _tlid = {
-    0x49f811f7, 0x6005, 0x4aaf, {0xae, 0, 0x9d, 0x98, 0x76, 0x6a, 0x6e, 0x26}};
+    0x49f811f7, 0x6005, 0x4aaf, { 0xae, 0, 0x9d, 0x98, 0x76, 0x6a, 0x6e, 0x26 }
+};
 const WORD _wVerMajor = 1;
 const WORD _wVerMinor = 0;
 
@@ -35,26 +36,28 @@ BOOL CNTGraphApp::InitInstance() { return COleControlModule::InitInstance(); }
 
 int CNTGraphApp::ExitInstance() { return COleControlModule::ExitInstance(); }
 
-STDAPI DllRegisterServer(void) {
-  AFX_MANAGE_STATE(_afxModuleAddrThis);
+STDAPI DllRegisterServer(void)
+{
+    AFX_MANAGE_STATE(_afxModuleAddrThis);
 
-  if (!AfxOleRegisterTypeLib(AfxGetInstanceHandle(), _tlid))
-    return ResultFromScode(SELFREG_E_TYPELIB);
+    if (!AfxOleRegisterTypeLib(AfxGetInstanceHandle(), _tlid))
+        return ResultFromScode(SELFREG_E_TYPELIB);
 
-  if (!COleObjectFactoryEx::UpdateRegistryAll(TRUE))
-    return ResultFromScode(SELFREG_E_CLASS);
+    if (!COleObjectFactoryEx::UpdateRegistryAll(TRUE))
+        return ResultFromScode(SELFREG_E_CLASS);
 
-  return NOERROR;
+    return NOERROR;
 }
 
-STDAPI DllUnregisterServer(void) {
-  AFX_MANAGE_STATE(_afxModuleAddrThis);
+STDAPI DllUnregisterServer(void)
+{
+    AFX_MANAGE_STATE(_afxModuleAddrThis);
 
-  if (!AfxOleUnregisterTypeLib(_tlid, _wVerMajor, _wVerMinor))
-    return ResultFromScode(SELFREG_E_TYPELIB);
+    if (!AfxOleUnregisterTypeLib(_tlid, _wVerMajor, _wVerMinor))
+        return ResultFromScode(SELFREG_E_TYPELIB);
 
-  if (!COleObjectFactoryEx::UpdateRegistryAll(FALSE))
-    return ResultFromScode(SELFREG_E_CLASS);
+    if (!COleObjectFactoryEx::UpdateRegistryAll(FALSE))
+        return ResultFromScode(SELFREG_E_CLASS);
 
-  return NOERROR;
+    return NOERROR;
 }
