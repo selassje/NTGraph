@@ -1,16 +1,30 @@
-// ElementPpg.cpp : implementation file
-//
+/*
+MIT License
+
+Copyright(c) 2020 Przemyslaw Koziol
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this softwareand associated documentation files(the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and /or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions :
+
+The above copyright noticeand this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 #include "stdafx.h"
 #include "NTGraph.hpp"
 #include "ElementPpg.hpp"
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -307,7 +321,7 @@ LRESULT CElementPropPage::OnLineColorChange(WPARAM, LPARAM)
 	GetPropText("ElementCount", &count);
 	
 	CString str;
-	str.Format("%d", m_btnLineColor.GetColour());
+	str.Format("%u", m_btnLineColor.GetColour());
 	SetPropText("ElementLineColor", str);	
 	
     TRACE0("Selection changed= %d\n");
@@ -319,7 +333,7 @@ LRESULT CElementPropPage::OnPointColorChange(WPARAM /*lParam*/, LPARAM /*wParam*
 	GetPropText("ElementCount", &count);
 	
 	CString str;
-	str.Format("%d", m_btnPointColor.GetColour());
+	str.Format("%u", m_btnPointColor.GetColour());
 	SetPropText("ElementPointColor", str);	
 	
     TRACE0("Selection changed= %d\n");

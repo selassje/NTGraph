@@ -58,10 +58,10 @@ class CGraphCursor
 {
 
 public:
+    CElementPoint position;
 	OLE_COLOR m_Color;
 	BOOL m_bVisible;
 	CursorMode m_nMode;
-	CElementPoint position;
 	Crosshair m_nStyle;
 
 	CGraphCursor () 
@@ -86,7 +86,7 @@ public:
 
 	CGraphAnnotation () 
 	{
-		m_Caption = _T("");
+		m_Caption.Empty();
 		m_Color = RGB(255,255,255);
 		m_BkColor = RGB(120,120,120);
 		m_bHorizontal = TRUE;
@@ -175,11 +175,11 @@ protected:
 	void CalcRect(CDC *pDC);
 	void CreateFont(CDC *pDC);
 	CPoint Corrdinate(double x, double y);
-    CPoint Corrdinate(CElementPoint pt);
+    CPoint Corrdinate(const CElementPoint &pt);
 	CElementPoint FindPoint(double x, double y);
 	CString FormatXAxisLabel(double data);
 	CString FormatYAxisLabel(double data);
-	void PrepareForDrawing(CDC *pDC, CRect rect);
+	void PrepareForDrawing(CDC *pDC, const CRect& rect);
     void FillToolInfo(TOOLINFO *ti);
 	void DoPan(CPoint point, long mode);
 	void DoZoom(UINT nFlags, CPoint point);

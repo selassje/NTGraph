@@ -120,19 +120,19 @@ LRESULT CNTGraphPropPage::OnColorChange(WPARAM /*lParam*/, LPARAM /*wParam*/)
 
 	CString str;
 	
-	str.Format("%d",m_btnFrameColor.GetColour());
+	str.Format("%u",m_btnFrameColor.GetColour());
 	SetPropText("ControlFrameColor", str);
 
-	str.Format("%d",m_btnPlotColor.GetColour());
+	str.Format("%u",m_btnPlotColor.GetColour());
 	SetPropText("PlotAreaColor", str);
 	
-	str.Format("%d",m_btnGridColor.GetColour());
+	str.Format("%u",m_btnGridColor.GetColour());
 	SetPropText("GridColor", str);
 	
-	str.Format("%d",m_btnAxisColor.GetColour());
+	str.Format("%u",m_btnAxisColor.GetColour());
 	SetPropText("AxisColor", str);
 	
-	str.Format("%d",m_btnLabelColor.GetColour());
+	str.Format("%u",m_btnLabelColor.GetColour());
 	SetPropText("LabelColor", str);
 
 

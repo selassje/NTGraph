@@ -1,13 +1,26 @@
-/////////////////////////////////////////////////////////////////////////////
-// NTGraphCtl.cpp : Implementation of the CNTGraphCtrl ActiveX Control class.
-//
-// Autor : Nikolai Teofilov  nteofilov@yahoo.de
-//			
-// Comment	: Use with your own risk !
-//
-// Copyright (c) 2003.
+/*
+MIT License
 
+Copyright(c) 2003- 2020 Przemyslaw Koziol,  Nikolai Teofilov  nteofilov@yahoo.de
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this softwareand associated documentation files(the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and /or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions :
+
+The above copyright noticeand this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 #include "stdafx.h"
 #include "NTGraphCtl.hpp"
@@ -32,15 +45,9 @@ void DrawLeftTriangle(CDC* pDC, CPoint point, int symsz);
 #define MIN 0
 #endif
 
-#define PT2DBLX(x) (double)((x - m_axisRect.left)*dResX)+ dRangeX[MIN]
-#define PT2DBLY(y) (double)((m_axisRect.bottom - y)*dResY)+ dRangeY[MIN]
-#define ROUND(x) 	((int)((x) + (((x)<0.0) ? -0.5 : 0.5)))
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
+#define PT2DBLX(x) (double)(((x) - m_axisRect.left)*dResX)+ dRangeX[MIN]
+#define PT2DBLY(y) (double)((m_axisRect.bottom - (y))*dResY)+ dRangeY[MIN]
+#define ROUND(x)   ((int)((x) + (((x)<0.0) ? -0.5 : 0.5)))
 
 // This help id is also defined and used in the
 // testhelp.hpj help project file.  It references
@@ -50,7 +57,6 @@ static char THIS_FILE[] = __FILE__;
 
 
 IMPLEMENT_DYNCREATE(CNTGraphCtrl, COleControl)
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Message map
@@ -542,7 +548,7 @@ void CNTGraphCtrl::OnFontChanged()
 	COleControl::OnFontChanged();
 }
 
-void CNTGraphCtrl::PrepareForDrawing(CDC *pDC, CRect rect)
+void CNTGraphCtrl::PrepareForDrawing(CDC *pDC,const CRect &rect)
 {
 
    pDC->SetMapMode(MM_TEXT) ;
@@ -648,7 +654,7 @@ CPoint CNTGraphCtrl::Corrdinate(double x, double y)
 	return retPt ;
 }
 
-CPoint CNTGraphCtrl::Corrdinate(CElementPoint pt)
+CPoint CNTGraphCtrl::Corrdinate(const CElementPoint& pt)
 {
 	double rx , ry ;
 	int xPixel , yPixel ;
@@ -1675,11 +1681,8 @@ void CNTGraphCtrl::OnControlFrameColorChanged()
 
 void CNTGraphCtrl::OnFrameStyleChanged() 
 {
-    m_brushFrame.DeleteObject();
-	InvalidateControl();
-	SetModifiedFlag();
+	OnControlFrameColorChanged();
 }
-
 void CNTGraphCtrl::OnLabelColorChanged() 
 {
     InvalidateControl();
@@ -1744,20 +1747,14 @@ void CNTGraphCtrl::OnYLogChanged()
 
 void CNTGraphCtrl::SetRange(double xmin, double xmax, double ymin, double ymax) 
 {
-
-	if (xmin==xmax || ymin==ymax)
-		return;
-	else if (xmin>xmax || ymin>ymax)
-		return;
-	else 
+	const double epsilon = 0.1;
+	if ( fabs(xmin - xmax) > epsilon && fabs(ymin - ymax) > epsilon && xmin <= xmax && ymin <= ymax)
 	{
 		dRangeX[MIN] = xmin ;
 		dRangeX[MAX] = xmax ;
 		dRangeY[MIN] = ymin ;
 		dRangeY[MAX] = ymax ;
-	//	m_nExpX = (int)(floor( log10(fabs(dRangeX[MAX])) ) );
-	//	m_nExpY = (int)(floor( log10(fabs(dRangeY[MAX])) ) );
-    }
+	}
 	InvalidateControl();
 }
 void CNTGraphCtrl::AutoRange() 
@@ -1903,7 +1900,7 @@ void CNTGraphCtrl::DoZoom(UINT nFlags, CPoint point)
 		CRectTracker tracker;
 		double xmin, xmax, ymin, ymax;
         xmin=dRangeX[MIN];
-        xmin=dRangeX[MAX];
+        xmax=dRangeX[MAX];
 		ymin=dRangeY[MIN];
 		ymax=dRangeY[MAX];
 
@@ -2099,7 +2096,6 @@ void CNTGraphCtrl::CopyToClipboard()
 // Print the control
 void CNTGraphCtrl::PrintGraph()
 {
-	char pbuf[100] = "NTGraph ActiveX Control";
 	HDC hdcPrn ;
 
 	// Instantiate a CPrintDialog.
@@ -2120,6 +2116,7 @@ void CNTGraphCtrl::PrintGraph()
 	hdcPrn = printDlg->GetPrinterDC();
 	if (hdcPrn != NULL)
 	{
+		char pbuf[100] = "NTGraph ActiveX Control";
 		CDC *pDC = new CDC;
 		pDC->Attach (hdcPrn); // attach a printer DC
 
@@ -2167,8 +2164,8 @@ void CNTGraphCtrl::PrintGraph()
 		CArray <CY, CY> arrFontSize;
 
 		// calculate the conversion factor:
-		double dHeightRatio = nHeight/nScreenHeight;
-		double dWidthRatio = nWidth/nScreenWidth;
+		double dHeightRatio = static_cast<double>(nHeight)/nScreenHeight;
+		double dWidthRatio = static_cast<double>(nWidth)/nScreenWidth;
 		double dconv = max(dHeightRatio, dWidthRatio);
 
 		// convert each font and keep the actual font-size
@@ -2340,23 +2337,22 @@ void CNTGraphCtrl::PlotXY(double X, double Y, short ElementID)
 		bIsPlotAvailable= TRUE ;
     }
 	
-
-	CElementPoint point(X, Y);
-
 	// Gets the position of the element by index.
     POSITION aPosition = m_ElementList.FindIndex(ElementID);
 
 	if (aPosition != NULL) {
-		m_ElementList.GetAt(aPosition)->m_PointList.AddTail(point);
-		if(m_ElementList.GetAt(aPosition)->min.x > point.x)
-			 m_ElementList.GetAt(aPosition)->min.x=point.x ;
-        if(m_ElementList.GetAt(aPosition)->min.y > point.y)
-			 m_ElementList.GetAt(aPosition)->min.y=point.y ;
-		if(m_ElementList.GetAt(aPosition)->max.x < point.x)
-			 m_ElementList.GetAt(aPosition)->max.x=point.x ;
-		if(m_ElementList.GetAt(aPosition)->max.y < point.y)
-			 m_ElementList.GetAt(aPosition)->max.y=point.y ;
-    	m_ElementList.GetAt(aPosition)->bIsPlotAvailable = TRUE ;
+		CElementPoint point(X, Y);
+		const auto graphElement = m_ElementList.GetAt(aPosition);
+		graphElement->m_PointList.AddTail(point);
+		if(graphElement->min.x > point.x)
+			 graphElement->min.x=point.x ;
+        if(graphElement->min.y > point.y)
+			 graphElement->min.y=point.y ;
+		if(graphElement->max.x < point.x)
+			 graphElement->max.x=point.x ;
+		if(graphElement->max.y < point.y)
+			 graphElement->max.y=point.y ;
+    	graphElement->bIsPlotAvailable = TRUE ;
 	} else
 		AfxMessageBox("Element not found!") ;
 
@@ -2387,25 +2383,27 @@ void CNTGraphCtrl::PlotY(double Y, short ElementID)
 	} 
 	else 
 	{
-		dAutoRangeX[MIN]=floor(static_cast<double>(X));
-		dAutoRangeY[MIN]=floor(static_cast<double>(X));
-		dAutoRangeX[MAX]=ceil(static_cast<double>(X));
-		dAutoRangeY[MAX]=ceil(static_cast<double>(X));
+		double dX = static_cast<double>(X);
+		dAutoRangeX[MIN]=floor(dX);
+		dAutoRangeY[MIN]=floor(dX);
+		dAutoRangeX[MAX]=ceil(dX);
+		dAutoRangeY[MAX]=ceil(dX);
 		bIsPlotAvailable= TRUE ;
 	}
 	
 	CElementPoint point((X++), Y);
+	auto graphElement = m_ElementList.GetAt(aPosition);
 
-	m_ElementList.GetAt(aPosition)->m_PointList.AddTail(point);
-	if(m_ElementList.GetAt(aPosition)->min.x > point.x)
-		 m_ElementList.GetAt(aPosition)->min.x=point.x ;
-	if(m_ElementList.GetAt(aPosition)->min.y > point.y)
-		 m_ElementList.GetAt(aPosition)->min.y=point.y ;
-	if(m_ElementList.GetAt(aPosition)->max.x < point.x)
-		 m_ElementList.GetAt(aPosition)->max.x=point.x ;
-	if(m_ElementList.GetAt(aPosition)->max.y < point.y)
-		 m_ElementList.GetAt(aPosition)->max.y=point.y ;
-	m_ElementList.GetAt(aPosition)->bIsPlotAvailable = TRUE ;
+	graphElement->m_PointList.AddTail(point);
+	if(graphElement->min.x > point.x)
+		 graphElement->min.x=point.x ;
+	if(graphElement->min.y > point.y)
+		 graphElement->min.y=point.y ;
+	if(graphElement->max.x < point.x)
+		 graphElement->max.x=point.x ;
+	if(graphElement->max.y < point.y)
+		 graphElement->max.y=point.y ;
+	graphElement->bIsPlotAvailable = TRUE ;
 
 	InvalidateControl();
 	
@@ -2498,17 +2496,19 @@ void CNTGraphCtrl::OnElementChanged()
 	}
 	else
 	{
-		m_elementLineColor = m_ElementList.GetAt(m_Position)->m_LineColor;
-		m_elementPointColor = m_ElementList.GetAt(m_Position)->m_PointColor;
+		const auto graphElement = m_ElementList.GetAt(m_Position);
 
-		m_elementWidth = m_ElementList.GetAt(m_Position)->m_nWidth;
-		m_elementLinetype = m_ElementList.GetAt(m_Position)->m_nType;
+		m_elementLineColor  =  graphElement->m_LineColor;
+		m_elementPointColor = graphElement->m_PointColor;
 
-		m_elementPointSymbol = m_ElementList.GetAt(m_Position)->m_nSymbol;
-		m_elementSolidPoint = m_ElementList.GetAt(m_Position)->m_bSolid;
+		m_elementWidth    = graphElement->m_nWidth;
+		m_elementLinetype = graphElement->m_nType;
+
+		m_elementPointSymbol = graphElement->m_nSymbol;
+		m_elementSolidPoint  = graphElement->m_bSolid;
 		
-		m_elementShow = m_ElementList.GetAt(m_Position)->m_bShow;
-		m_elementName = m_ElementList.GetAt(m_Position)->m_strName;
+		m_elementShow = graphElement->m_bShow;
+		m_elementName = graphElement->m_strName;
 
 		SetModifiedFlag();
 	}
@@ -2793,7 +2793,7 @@ PBITMAPINFO CNTGraphCtrl::CreateBitmapInfoStruct(HBITMAP hBmp)
 
   //Convert the color format to a count of bits. 
   cClrBits = (WORD)(bmp.bmPlanes * bmp.bmBitsPixel); 
-  if(cClrBits == 1) 
+  if(cClrBits <= 1) 
     cClrBits = 1; 
   else if(cClrBits <= 4) 
     cClrBits = 4; 
@@ -3010,7 +3010,7 @@ void CNTGraphCtrl::Annotate(CDC *pDC)
 void CNTGraphCtrl::AddAnnotation() 
 {
 	CGraphAnnotation anno;
-	anno.m_Caption.Format("Annotation-%d", m_AnnotationList.GetCount());
+	anno.m_Caption.Format("Annotation-%lld", m_AnnotationList.GetCount());
 	
 	m_AnnotationList.AddTail(anno);
 	m_nAnnotation = static_cast<short>(m_AnnotationList.GetCount())-1;
@@ -3127,13 +3127,15 @@ void CNTGraphCtrl::OnAnnotationChanged()
     
 	if(pos)
 	{
-		m_annoLabelCaption = m_AnnotationList.GetAt(pos).m_Caption;
-		m_annoLabelX = m_AnnotationList.GetAt(pos).place.x;
-		m_annoLabelY = m_AnnotationList.GetAt(pos).place.y;
-		m_annoLabelColor = m_AnnotationList.GetAt(pos).m_Color;
-		m_annoLabelBkColor = m_AnnotationList.GetAt(pos).m_BkColor;
-		m_annoLabelHorizontal = m_AnnotationList.GetAt(pos).m_bHorizontal;
-		m_annoVisible = m_AnnotationList.GetAt(pos).m_bVisible;
+		const auto graphAnnotation =  m_AnnotationList.GetAt(pos);
+		m_annoLabelCaption = graphAnnotation.m_Caption;
+
+		m_annoLabelX = graphAnnotation.place.x;
+		m_annoLabelY = graphAnnotation.place.y;
+		m_annoLabelColor = graphAnnotation.m_Color;
+		m_annoLabelBkColor = graphAnnotation.m_BkColor;
+		m_annoLabelHorizontal = graphAnnotation.m_bHorizontal;
+		m_annoVisible = graphAnnotation.m_bVisible;
 
 		SetModifiedFlag();
 	}
@@ -3214,24 +3216,21 @@ void CNTGraphCtrl::CursorPosition(CPoint point)
 	 m_cursorX = rx;
 	 m_cursorY = ry;
 
-	 CElementPoint pt(rx,ry);
-
-
 	 POSITION pos = m_CursorList.FindIndex(m_nCursorID);
       
 	 if (m_axisRect.PtInRect(point) && pos) 
 	 {	
-		 if(m_CursorList.GetAt(pos).m_nMode > 0)
+		 auto graphCursor = m_CursorList.GetAt(pos);
+		 if(graphCursor.m_nMode > 0)
 		 {
-			if (m_CursorList.GetAt(pos).m_nMode == Snap && m_elementCount > 0)
+			if (graphCursor.m_nMode == Snap && m_elementCount > 0)
 			{		
-				pt = FindPoint(rx,ry);
+			    auto pt = FindPoint(rx,ry);
 				rx = pt.x;
 				ry = pt.y;
 			}
-
-			m_CursorList.GetAt(pos).position.x = rx;
-			m_CursorList.GetAt(pos).position.y = ry;
+			graphCursor.position.x = rx;
+			graphCursor.position.y = ry;
 			InvalidateControl(m_axisRect);
 			
 		 }
@@ -3327,13 +3326,13 @@ void CNTGraphCtrl::OnCursorChanged()
     
 	if(pos)
 	{
-		m_cursorX = m_CursorList.GetAt(pos).position.x;
-		m_cursorY = m_CursorList.GetAt(pos).position.y;
-		m_cursorColor = m_CursorList.GetAt(pos).m_Color;
-		m_cursorVisible = m_CursorList.GetAt(pos).m_bVisible;
-		m_cursorMode = m_CursorList.GetAt(pos).m_nMode;
-		m_cursorStyle = m_CursorList.GetAt(pos).m_nStyle;
-
+		const auto graphCursor = m_CursorList.GetAt(pos);
+		m_cursorX = graphCursor.position.x;
+		m_cursorY = graphCursor.position.y;
+		m_cursorColor = graphCursor.m_Color;
+		m_cursorVisible = graphCursor.m_bVisible;
+		m_cursorMode = graphCursor.m_nMode;
+		m_cursorStyle = graphCursor.m_nStyle;
 		SetModifiedFlag();
 	}
 }

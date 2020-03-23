@@ -76,8 +76,8 @@ protected:
     void EndSelection(int nMessage);
     void DrawCell(CDC* pDC, int nIndex);
 
-    COLORREF GetColour(int nIndex)              { return m_crColours[nIndex].crColour; }
-    LPCTSTR GetColourName(int nIndex)           { return m_crColours[nIndex].szName; }
+    COLORREF GetColour(size_t nIndex)              { return m_crColours[nIndex].crColour; }
+    LPCTSTR GetColourName(size_t nIndex)           { return m_crColours[nIndex].szName; }
     int  GetIndex(int row, int col) const;
     int  GetRow(int nIndex) const;
     int  GetColumn(int nIndex) const;

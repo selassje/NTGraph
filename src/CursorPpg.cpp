@@ -328,7 +328,7 @@ LRESULT CCursorPropPage::OnColorChange(WPARAM /*lParam*/, LPARAM /*wParam*/)
 	if(count>0)
 	{
 		CString str;
-		str.Format("%d",m_btnColor.GetColour());
+		str.Format("%u",m_btnColor.GetColour());
 		SetPropText("CursorColor", str);	
 	}	
 
@@ -344,7 +344,6 @@ void CCursorPropPage::OnCloseupComboStyle()
 	
 	if(count>0)
 	{
-		CString str("TRUE");
 		int style = m_cbStyle.GetCurSel();
 		SetPropText("CursorStyle", style);
 	}		
@@ -357,7 +356,6 @@ void CCursorPropPage::OnCloseupComboSnap()
 	
 	if(count>0)
 	{
-		CString str("TRUE");
 		int mode = m_cbSnap.GetCurSel();
 		SetPropText("CursorMode", mode);
 	}	

@@ -1,14 +1,6 @@
-// FormatPpg.cpp : implementation file
-//
 
 #include "stdafx.h"
 #include "FormatPpg.hpp"
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // CFormatPropPage dialog
@@ -306,21 +298,12 @@ void CFormatPropPage::OnCloseupComboAxis()
 
 void CFormatPropPage::SetAxisTimeFormat(CString str)
 {
-
 	if(m_cbAxis.GetCurSel())
 	{
-		if(m_cbAxis.GetCurSel())
-			SetPropText("YTime", str);
-		else
-			SetPropText("YTime", str);
+		SetPropText("YTime", str);
 	}
 	else
 	{
-		if(m_cbAxis.GetCurSel())
-			SetPropText("XTime", str);
-		else
-			SetPropText("XTime", str);
+	   SetPropText("XTime", str);
 	}
-
-
 }

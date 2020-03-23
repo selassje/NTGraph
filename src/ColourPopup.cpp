@@ -532,7 +532,7 @@ void CColourPopup::FindCellFromColour(COLORREF crColour)
 
     for (int i = 0; i < m_nNumColours; i++)
     {
-        if (GetColour(i) == crColour)
+        if (GetColour(static_cast<size_t>(i)) == crColour)
         {
             m_nChosenColourSel = i;
             return;

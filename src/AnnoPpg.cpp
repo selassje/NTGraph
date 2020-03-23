@@ -370,7 +370,7 @@ LRESULT CAnnoPropPage::OnColorChange(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	if(count>0)
 	{
 		CString str;
-		str.Format("%d",m_btnColor.GetColour());
+		str.Format("%u",m_btnColor.GetColour());
 		SetPropText("AnnoLabelColor", str);	
 	}	
 
@@ -386,8 +386,8 @@ LRESULT CAnnoPropPage::OnBkColorChange(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	if(count>0)
 	{
 		CString str;
-		str.Format("%d",m_btnBkColor.GetColour());
-		SetPropText("AnnoLabelBkColor", str);	
+		str.Format("%u",m_btnBkColor.GetColour());
+		SetPropText("AnnoLabelBkColor", str);
 	}	
 
     TRACE0("Selection changed= %d\n");
