@@ -50,7 +50,7 @@ public:
     BOOL m_bYLog;
     COLORREF m_FrameColor;
     CColourPicker m_btnFrameColor;
-    COLORREF m_PlotColor;
+    COLORREF m_PlotColor = 0;
     CColourPicker m_btnPlotColor;
     COLORREF m_GridColor;
     CColourPicker m_btnGridColor;
@@ -65,7 +65,6 @@ protected:
     virtual void DoDataExchange(CDataExchange* pDX);
     void UpdateControls();
 
-protected:
     afx_msg BOOL OnHelpInfo(HELPINFO* pHelpInfo);
     afx_msg LRESULT OnColorChange(WPARAM wParam, LPARAM lParam);
     afx_msg void OnChangeCaption();

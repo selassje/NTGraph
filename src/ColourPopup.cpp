@@ -135,7 +135,7 @@ void CColourPopup::Initialise()
     pLogPalette->palVersion = 0x300;
     pLogPalette->palNumEntries = (WORD)m_nNumColours;
 
-    for (int i = 0; i < m_nNumColours; i++) {
+    for (size_t i = 0; i < static_cast<size_t>(m_nNumColours); i++) {
         pLogPalette->palPalEntry[i].peRed = GetRValue(m_crColours[i].crColour);
         pLogPalette->palPalEntry[i].peGreen = GetGValue(m_crColours[i].crColour);
         pLogPalette->palPalEntry[i].peBlue = GetBValue(m_crColours[i].crColour);
@@ -574,9 +574,9 @@ void CColourPopup::CreateToolTips()
     if (!m_ToolTip.Create(this))
         return;
 
-    for (int i = 0; i < m_nNumColours; i++) {
+    for (size_t i = 0; i < static_cast<size_t>(m_nNumColours); i++) {
         CRect rect;
-        if (!GetCellRect(i, rect))
+        if (!GetCellRect(static_cast<int> (i), rect))
             continue;
         m_ToolTip.AddTool(this, GetColourName(i), rect, 1);
     }
@@ -604,7 +604,7 @@ void CColourPopup::ChangeSelection(int nIndex)
         m_crColour = CLR_DEFAULT;
         m_pParent->SendMessage(CPN_SELCHANGE, (WPARAM)CLR_DEFAULT, 0);
     } else {
-        m_crColour = GetColour(m_nCurrentSel);
+        m_crColour = GetColour(static_cast<size_t>(m_nCurrentSel));
         m_pParent->SendMessage(CPN_SELCHANGE, (WPARAM)m_crColour, 0);
     }
 }
@@ -642,10 +642,12 @@ void CColourPopup::DrawCell(CDC* pDC, int nIndex)
 
         pDC->FillSolidRect(TextButtonRect, ::GetSysColor(COLOR_3DFACE));
 
+        const auto marginFactor = 4;
+
         pDC->FillSolidRect(m_CustomTextRect.left + 2 * m_nMargin, m_CustomTextRect.top,
-            m_CustomTextRect.Width() - 4 * m_nMargin, 1, ::GetSysColor(COLOR_3DSHADOW));
+            m_CustomTextRect.Width() - marginFactor * m_nMargin, 1, ::GetSysColor(COLOR_3DSHADOW));
         pDC->FillSolidRect(m_CustomTextRect.left + 2 * m_nMargin, m_CustomTextRect.top + 1,
-            m_CustomTextRect.Width() - 4 * m_nMargin, 1, ::GetSysColor(COLOR_3DHILIGHT));
+            m_CustomTextRect.Width() - marginFactor * m_nMargin, 1, ::GetSysColor(COLOR_3DHILIGHT));
 
         TextButtonRect.DeflateRect(1, 1);
 
@@ -719,9 +721,9 @@ void CColourPopup::DrawCell(CDC* pDC, int nIndex)
     else if (m_nChosenColourSel == nIndex)
         pDC->DrawEdge(rect, BDR_SUNKENOUTER, BF_RECT);
 
-    CBrush brush(PALETTERGB(GetRValue(GetColour(nIndex)),
-        GetGValue(GetColour(nIndex)),
-        GetBValue(GetColour(nIndex))));
+    CBrush brush(PALETTERGB(GetRValue(GetColour(static_cast<size_t>(nIndex))),
+        GetGValue(GetColour(static_cast<size_t>(nIndex))),
+        GetBValue(GetColour(static_cast<size_t>(nIndex)))));
     CPen pen;
     pen.CreatePen(PS_SOLID, 1, ::GetSysColor(COLOR_3DSHADOW));
 

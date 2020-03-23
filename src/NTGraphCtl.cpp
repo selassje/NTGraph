@@ -2022,7 +2022,7 @@ double CNTGraphCtrl::GetElementXValue(long index, short ElementID)
     POSITION aPosition = m_ElementList.FindIndex(ElementID);
 
     if (aPosition != NULL) {
-        POSITION pos = m_ElementList.GetAt(aPosition)->m_PointList.FindIndex(index);
+        POSITION pos = m_ElementList.GetAt(aPosition)->m_PointList.FindIndex(static_cast<size_t>(index));
         if (pos != NULL)
             return m_ElementList.GetAt(aPosition)->m_PointList.GetAt(pos).x;
         else
@@ -2037,7 +2037,7 @@ void CNTGraphCtrl::SetElementXValue(long index, short ElementID, double newValue
     POSITION aPosition = m_ElementList.FindIndex(ElementID);
 
     if (aPosition != NULL) {
-        POSITION pos = m_ElementList.GetAt(aPosition)->m_PointList.FindIndex(index);
+        POSITION pos = m_ElementList.GetAt(aPosition)->m_PointList.FindIndex(static_cast<size_t>(index));
         if (pos != NULL)
             m_ElementList.GetAt(aPosition)->m_PointList.GetAt(pos).x = newValue;
         else
@@ -2054,7 +2054,7 @@ double CNTGraphCtrl::GetElementYValue(long index, short ElementID)
     POSITION aPosition = m_ElementList.FindIndex(ElementID);
 
     if (aPosition != NULL) {
-        POSITION pos = m_ElementList.GetAt(aPosition)->m_PointList.FindIndex(index);
+        POSITION pos = m_ElementList.GetAt(aPosition)->m_PointList.FindIndex(static_cast<size_t>(index));
         if (pos != NULL)
             return m_ElementList.GetAt(aPosition)->m_PointList.GetAt(pos).y;
         else
@@ -2070,7 +2070,7 @@ void CNTGraphCtrl::SetElementYValue(long index, short ElementID, double newValue
     POSITION aPosition = m_ElementList.FindIndex(ElementID);
 
     if (aPosition != NULL) {
-        POSITION pos = m_ElementList.GetAt(aPosition)->m_PointList.FindIndex(index);
+        POSITION pos = m_ElementList.GetAt(aPosition)->m_PointList.FindIndex(static_cast<size_t>(index));
         if (pos != NULL)
             m_ElementList.GetAt(aPosition)->m_PointList.GetAt(pos).y = newValue;
         else
@@ -2375,7 +2375,7 @@ PBITMAPINFO CNTGraphCtrl::CreateBitmapInfoStruct(HBITMAP hBmp)
         cClrBits = 32;
 
     if (cClrBits != 24)
-        pbmi = (PBITMAPINFO)LocalAlloc(LPTR, sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * (1ull << cClrBits));
+        pbmi = (PBITMAPINFO)LocalAlloc(LPTR, offsetof(BITMAPINFO, bmiHeader) + sizeof(RGBQUAD) * (1ull << cClrBits));
     else
         pbmi = (PBITMAPINFO)LocalAlloc(LPTR, sizeof(BITMAPINFOHEADER));
 
@@ -2410,7 +2410,7 @@ void CNTGraphCtrl::CreateBMPFile(LPTSTR pszFile, PBITMAPINFO pbi, HBITMAP hBMP, 
     DWORD dwTmp;
 
     pbih = (PBITMAPINFOHEADER)pbi;
-    lpBits = (LPBYTE)GlobalAlloc(GMEM_FIXED, pbih->biSizeImage);
+    lpBits = (LPBYTE)GlobalAlloc(GMEM_FIXED, static_cast<size_t>(pbih->biSizeImage));
 
     if (!lpBits) {
         MessageBox("Unable to allocate memory for saving bitmap", "", MB_OK | MB_ICONERROR);
@@ -2437,25 +2437,24 @@ void CNTGraphCtrl::CreateBMPFile(LPTSTR pszFile, PBITMAPINFO pbi, HBITMAP hBMP, 
 
     hdr.bfType = 0x4d42;
 
-    hdr.bfSize = (DWORD)(sizeof(BITMAPFILEHEADER) + pbih->biSize + pbih->biClrUsed * sizeof(RGBQUAD) + pbih->biSizeImage);
+    hdr.bfSize = (DWORD)(offsetof(BITMAPINFO, bmiHeader) + static_cast<size_t>(pbih->biSize) + static_cast<size_t>(pbih->biClrUsed) * sizeof(RGBQUAD) + static_cast<size_t>(pbih->biSizeImage));
 
     hdr.bfReserved1 = 0;
     hdr.bfReserved2 = 0;
 
-    hdr.bfOffBits = (DWORD)sizeof(BITMAPFILEHEADER) + pbih->biSize + pbih->biClrUsed * sizeof(RGBQUAD);
+    hdr.bfOffBits = static_cast<DWORD> (offsetof(BITMAPINFO, bmiHeader) + static_cast<size_t>(pbih->biSize) + static_cast<size_t>(pbih->biClrUsed) * sizeof(RGBQUAD));
 
     if (!WriteFile(hf, (LPVOID)&hdr, sizeof(BITMAPFILEHEADER), (LPDWORD)&dwTmp, NULL)) {
         MessageBox("Unable to write file header when saving bitmap", "", MB_OK | MB_ICONERROR);
         return;
     }
 
-    if (!WriteFile(hf, (LPVOID)pbih, sizeof(BITMAPINFOHEADER) + pbih->biClrUsed * sizeof(RGBQUAD),
+    if (!WriteFile(hf, (LPVOID)pbih, static_cast<DWORD>(offsetof(BITMAPINFO, bmiHeader) + static_cast<size_t>(pbih->biClrUsed) * sizeof(RGBQUAD)),
             (LPDWORD)&dwTmp, (NULL))) {
         MessageBox("Unable to write bitmap info", "", MB_OK | MB_ICONERROR);
         return;
     }
 
-    //Copy the array of color indices into the .BMP file.
     dwTotal = cb = pbih->biSizeImage;
     hp = lpBits;
     if (!WriteFile(hf, (LPSTR)hp, (int)cb, (LPDWORD)&dwTmp, NULL)) {
@@ -2761,7 +2760,7 @@ CElementPoint CNTGraphCtrl::FindPoint(double cursor_x, double cursor_y)
         i++;
     }
 
-    pos = pElement->m_PointList.FindIndex(index);
+    pos = pElement->m_PointList.FindIndex(static_cast<size_t>(index));
 
     return pElement->m_PointList.GetAt(pos);
 }

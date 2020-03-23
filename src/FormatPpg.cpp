@@ -121,7 +121,6 @@ void CFormatPropPage::OnButtonDefault()
 
 void CFormatPropPage::OnSelchangeFormatList()
 {
-    CString str;
     switch (m_cbType.GetCurSel()) {
     case 0:
         if (m_lbFormats.GetCaretIndex() == 0)
