@@ -44,22 +44,22 @@ public:
     CButton m_btnGrid;
     CComboBox m_cbFrame;
     CComboBox m_cbTrackMode;
-    BOOL m_bShowGrid;
+    BOOL m_bShowGrid = false;
     CString m_caption;
-    BOOL m_bXLog;
-    BOOL m_bYLog;
-    COLORREF m_FrameColor;
+    BOOL m_bXLog = false;
+    BOOL m_bYLog = false;
+    COLORREF m_FrameColor = 0;
     CColourPicker m_btnFrameColor;
     COLORREF m_PlotColor = 0;
     CColourPicker m_btnPlotColor;
-    COLORREF m_GridColor;
+    COLORREF m_GridColor = 0;
     CColourPicker m_btnGridColor;
-    COLORREF m_AxisColor;
+    COLORREF m_AxisColor = 0;
     CColourPicker m_btnAxisColor;
-    COLORREF m_LabelColor;
+    COLORREF m_LabelColor = 0;
     CColourPicker m_btnLabelColor;
-    int m_nFrame;
-    int m_nMode;
+    int m_nFrame = 0;
+    int m_nMode = 0;
 
 protected:
     virtual void DoDataExchange(CDataExchange* pDX);

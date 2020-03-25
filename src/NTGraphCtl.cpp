@@ -39,8 +39,8 @@ void DrawLeftTriangle(CDC* pDC, CPoint point, int symsz);
 
 #define MAX 1
 #define MIN 0
-#define PT2DBLX(x) (double)(((x)-m_axisRect.left) * dResX) + dRangeX[MIN]
-#define PT2DBLY(y) (double)((m_axisRect.bottom - (y)) * dResY) + dRangeY[MIN]
+#define PT2DBLX(x) (double)(((x)- static_cast<double>(m_axisRect.left)) * dResX) + dRangeX[MIN]
+#define PT2DBLY(y) (double)((  static_cast<double>(m_axisRect.bottom) - (y)) * dResY) + dRangeY[MIN]
 #define ROUND(x) ((int)((x) + (((x) < 0.0) ? -0.5 : 0.5)))
 
 #define IDH_WHATISTHISTHING 18001
@@ -1604,7 +1604,7 @@ void CNTGraphCtrl::DoZoom(UINT nFlags, CPoint point)
 
             xmin = PT2DBLX(pt1.x);
             ymax = PT2DBLY(pt1.y);
-            xmax = PT2DBLX(pt2.x);
+            xmax = PT2DBLX(static_cast<unsigned long long>((pt2.x)));
             ymin = PT2DBLY(pt2.y);
         }
 
@@ -2687,12 +2687,12 @@ void CNTGraphCtrl::DrawCursor(CDC* pDC)
 
         CPen* pPenSave = pDC->SelectObject(&m_cursorPen);
 
-        if (cursor.m_nStyle == XY || cursor.m_nStyle == X) {
+        if (cursor.m_nStyle == Crosshair::XY || cursor.m_nStyle == Crosshair::X) {
             pDC->MoveTo(Corrdinate(dRangeX[MIN], cursor.position.y));
             pDC->LineTo(Corrdinate(dRangeX[MAX], cursor.position.y));
         }
 
-        if (cursor.m_nStyle == XY || cursor.m_nStyle == Y) {
+        if (cursor.m_nStyle == Crosshair::XY || cursor.m_nStyle == Crosshair::Y) {
             pDC->MoveTo(Corrdinate(cursor.position.x, dRangeY[MIN]));
             pDC->LineTo(Corrdinate(cursor.position.x, dRangeY[MAX]));
         }
@@ -2719,8 +2719,8 @@ void CNTGraphCtrl::CursorPosition(CPoint point)
 
     if (m_axisRect.PtInRect(point) && pos) {
         auto graphCursor = m_CursorList.GetAt(pos);
-        if (graphCursor.m_nMode > 0) {
-            if (graphCursor.m_nMode == Snap && m_elementCount > 0) {
+        if (static_cast<int>(graphCursor.m_nMode) > 0) {
+            if (graphCursor.m_nMode == CursorMode::Snap && m_elementCount > 0) {
                 auto pt = FindPoint(rx, ry);
                 rx = pt.x;
                 ry = pt.y;
@@ -2814,8 +2814,8 @@ void CNTGraphCtrl::OnCursorChanged()
         m_cursorY = graphCursor.position.y;
         m_cursorColor = graphCursor.m_Color;
         m_cursorVisible = graphCursor.m_bVisible;
-        m_cursorMode = graphCursor.m_nMode;
-        m_cursorStyle = graphCursor.m_nStyle;
+        m_cursorMode = static_cast<short>(graphCursor.m_nMode);
+        m_cursorStyle = static_cast<short>(graphCursor.m_nStyle);
         SetModifiedFlag();
     }
 }
@@ -2879,7 +2879,7 @@ void CNTGraphCtrl::OnCursorModeChanged()
     if (pos) {
         m_CursorList.GetAt(pos).m_nMode = (CursorMode)m_cursorMode;
 
-        if (m_CursorList.GetAt(pos).m_nMode == Snap && m_elementCount > 0) {
+        if (m_CursorList.GetAt(pos).m_nMode == CursorMode::Snap && m_elementCount > 0) {
             CElementPoint pt;
             pt = FindPoint(m_cursorX, m_cursorY);
             m_cursorX = pt.x;

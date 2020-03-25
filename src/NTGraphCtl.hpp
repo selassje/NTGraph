@@ -50,10 +50,10 @@ enum SymbolType { Nosym,
     LeftTriangles,
     RightTriangles };
 
-enum CursorMode { Fixed,
+enum class CursorMode { Fixed,
     Floating,
     Snap };
-enum Crosshair { XY,
+enum class Crosshair { XY,
     X,
     Y };
 
@@ -93,8 +93,8 @@ public:
         m_Color = RGB(255, 255, 255);
         m_bVisible = TRUE;
         position = CElementPoint(0, 0);
-        m_nStyle = XY;
-        m_nMode = Fixed;
+        m_nStyle = Crosshair::XY;
+        m_nMode = CursorMode::Fixed;
     }
 };
 
