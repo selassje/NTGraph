@@ -7,4 +7,4 @@ This is a port of  https://www.codeproject.com/Articles/3214/2D-Graph-ActiveX-Co
 * mkdir build
 * cd build
 * cmake ../
-* camke --build . --config Release/Debug
+* cmake --build . --config Release/Debug
